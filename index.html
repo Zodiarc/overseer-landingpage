@@ -3,28 +3,28 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#07111f" />
-  <meta name="description" content="Overseer — autonomous software engineering. Observe. Prevent. Intervene." />
-  <title>Overseer — Coming Soon</title>
+  <meta name="theme-color" content="#050913" />
+  <meta name="description" content="Overseer orchestrates autonomous software engineering workflows with agents, quality gates, reviews, Git automation and controlled intervention." />
+  <title>Overseer — Autonomous Software Engineering</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <div class="site-shell">
-    <div class="ambient ambient-a"></div>
-    <div class="ambient ambient-b"></div>
-    <div class="grid"></div>
+  <div class="noise"></div>
+  <div class="page-glow glow-a"></div>
+  <div class="page-glow glow-b"></div>
 
-    <header class="topbar">
-      <a class="brand" href="#" aria-label="Overseer home">
-        <span class="brand-mark" aria-hidden="true">
-          <svg viewBox="0 0 48 48" role="img">
-            <path d="M24 5 39 13.5v17L24 39 9 30.5v-17L24 5Z" class="mark-outline"/>
-            <circle cx="24" cy="22" r="6" class="mark-eye"/>
-            <path d="M13 22c3.2-5.1 6.9-7.7 11-7.7S31.8 16.9 35 22c-3.2 5.1-6.9 7.7-11 7.7S16.2 27.1 13 22Z" class="mark-eye-outline"/>
-            <path d="M24 10v4M24 30v8" class="mark-line"/>
+  <header class="nav-shell">
+    <nav class="nav">
+      <a class="brand" href="#top" aria-label="Overseer home">
+        <span class="brand-icon" aria-hidden="true">
+          <svg viewBox="0 0 54 54">
+            <path d="M27 5.5 44 15v19L27 43.5 10 34V15L27 5.5Z" class="logo-frame"/>
+            <path d="M15.5 26.8c3.2-5.7 7.1-8.6 11.5-8.6s8.3 2.9 11.5 8.6c-3.2 5.7-7.1 8.6-11.5 8.6s-8.3-2.9-11.5-8.6Z" class="logo-eye"/>
+            <circle cx="27" cy="26.8" r="5.3" class="logo-core"/>
+            <path d="M27 10v7M27 36.5V42" class="logo-line"/>
           </svg>
         </span>
         <span class="brand-copy">
@@ -33,93 +33,495 @@
         </span>
       </a>
 
-      <div class="status-pill">
-        <span class="pulse"></span>
-        PRIVATE DEVELOPMENT
+      <div class="nav-links">
+        <a href="#capabilities">Capabilities</a>
+        <a href="#workflow">Workflow</a>
+        <a href="#integrations">Integrations</a>
       </div>
-    </header>
 
-    <main class="hero">
-      <div class="hero-copy">
-        <div class="eyebrow">AUTONOMOUS SOFTWARE ENGINEERING</div>
+      <a class="nav-status" href="#coming-soon">
+        <span></span>
+        PRIVATE BETA
+      </a>
+    </nav>
+  </header>
 
-        <h1>
-          Software delivery,
-          <span>under supervision.</span>
-        </h1>
+  <main id="top">
+    <section class="hero section">
+      <div class="hero-grid">
+        <div class="hero-copy reveal">
+          <div class="eyebrow">
+            <span class="eyebrow-dot"></span>
+            AUTONOMOUS SOFTWARE ENGINEERING
+          </div>
 
-        <p class="intro">
-          Overseer is a platform for orchestrating autonomous software engineering workflows
-          with controlled execution, verification and intervention.
+          <h1>
+            Give agents work.
+            <span>Keep control.</span>
+          </h1>
+
+          <p class="hero-text">
+            Overseer orchestrates AI-powered software engineering workflows from task to pull request —
+            with automated checks, reviews, recovery paths and human intervention built in.
+          </p>
+
+          <div class="hero-actions">
+            <a class="button primary" href="#workflow">See how it works</a>
+            <a class="button secondary" href="#capabilities">Explore capabilities</a>
+          </div>
+
+          <div class="hero-proof">
+            <div>
+              <strong>Multi-agent</strong>
+              <span>Code · Review · Quality</span>
+            </div>
+            <div>
+              <strong>Controlled</strong>
+              <span>Gates · Recovery · Approval</span>
+            </div>
+            <div>
+              <strong>Integrated</strong>
+              <span>GitHub · GitLab · LLM Providers</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-console reveal">
+          <div class="console-window">
+            <div class="console-topbar">
+              <div class="window-dots"><span></span><span></span><span></span></div>
+              <div class="console-title">RUN / TASK-142</div>
+              <div class="console-state">
+                <span class="state-dot"></span>
+                ACTIVE
+              </div>
+            </div>
+
+            <div class="console-body">
+              <div class="run-header">
+                <div>
+                  <span class="micro-label">OBJECTIVE</span>
+                  <strong>Implement feature and prepare pull request</strong>
+                </div>
+                <span class="run-id">OVR-142</span>
+              </div>
+
+              <div class="workflow-board hero-workflow">
+                <div class="wf-node done">
+                  <div class="node-icon">01</div>
+                  <div>
+                    <span>Prepare</span>
+                    <strong>Repository</strong>
+                  </div>
+                  <i>✓</i>
+                </div>
+
+                <div class="connector active-line"><span></span></div>
+
+                <div class="wf-node active">
+                  <div class="node-icon">02</div>
+                  <div>
+                    <span>Agent</span>
+                    <strong>Implement</strong>
+                  </div>
+                  <i></i>
+                </div>
+
+                <div class="connector"><span></span></div>
+
+                <div class="wf-node idle">
+                  <div class="node-icon">03</div>
+                  <div>
+                    <span>Quality</span>
+                    <strong>Test Suite</strong>
+                  </div>
+                  <i></i>
+                </div>
+
+                <div class="connector"><span></span></div>
+
+                <div class="wf-node idle">
+                  <div class="node-icon">04</div>
+                  <div>
+                    <span>Review</span>
+                    <strong>Code Review</strong>
+                  </div>
+                  <i></i>
+                </div>
+
+                <div class="connector"><span></span></div>
+
+                <div class="wf-node idle">
+                  <div class="node-icon">05</div>
+                  <div>
+                    <span>SCM</span>
+                    <strong>Open PR</strong>
+                  </div>
+                  <i></i>
+                </div>
+              </div>
+
+              <div class="console-metrics">
+                <div>
+                  <span class="micro-label">AGENT</span>
+                  <strong>OpenAI</strong>
+                </div>
+                <div>
+                  <span class="micro-label">BRANCH</span>
+                  <strong>agent/task-142</strong>
+                </div>
+                <div>
+                  <span class="micro-label">GUARDRAILS</span>
+                  <strong class="ok">ENFORCED</strong>
+                </div>
+              </div>
+
+              <div class="activity-stream">
+                <div class="activity-head">
+                  <span>LIVE ACTIVITY</span>
+                  <span class="live-dot">● LIVE</span>
+                </div>
+                <div class="log-line"><span>09:41:02</span><b>agent</b>Analyzing project structure</div>
+                <div class="log-line"><span>09:41:05</span><b>agent</b>Implementing requested change</div>
+                <div class="log-line muted"><span>next</span><b>quality</b>Automated checks queued</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="floating-card card-guard">
+            <span>CONTROL LAYER</span>
+            <strong>Human intervention ready</strong>
+          </div>
+
+          <div class="floating-card card-gate">
+            <span>QUALITY GATES</span>
+            <strong>3 checks configured</strong>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="ticker">
+      <div class="ticker-track">
+        <span>AI AGENTS</span><i></i>
+        <span>WORKFLOW ORCHESTRATION</span><i></i>
+        <span>QUALITY GATES</span><i></i>
+        <span>AUTOMATED REVIEWS</span><i></i>
+        <span>GIT AUTOMATION</span><i></i>
+        <span>RECOVERY FLOWS</span><i></i>
+        <span>HUMAN CONTROL</span><i></i>
+      </div>
+    </section>
+
+    <section id="capabilities" class="section capabilities">
+      <div class="section-heading reveal">
+        <div class="eyebrow">CAPABILITIES</div>
+        <h2>Autonomy without<br><span>blind trust.</span></h2>
+        <p>
+          Overseer treats autonomous coding as an engineering workflow — not a single prompt.
+          Each run can be observed, verified, redirected and stopped.
         </p>
+      </div>
 
-        <div class="launch-panel">
-          <div>
-            <span class="label">STATUS</span>
-            <strong>COMING SOON</strong>
+      <div class="feature-grid">
+        <article class="feature-card feature-wide reveal">
+          <div class="feature-number">01</div>
+          <div class="feature-icon">
+            <svg viewBox="0 0 48 48">
+              <rect x="6" y="8" width="13" height="11" rx="2"/>
+              <rect x="29" y="8" width="13" height="11" rx="2"/>
+              <rect x="18" y="29" width="13" height="11" rx="2"/>
+              <path d="M19 13.5h10M35.5 19v5.5H24.5V29M12.5 19v5.5h12V29"/>
+            </svg>
           </div>
-          <div class="launch-line" aria-hidden="true">
-            <span></span>
+          <h3>Visual workflow orchestration</h3>
+          <p>
+            Compose coding, testing, reviews, branching, parallel work and recovery into explicit,
+            repeatable engineering workflows.
+          </p>
+          <div class="mini-flow">
+            <span>CODE</span><i>→</i><span>TEST</span><i>→</i><span>REVIEW</span><i>→</i><span>PR</span>
           </div>
-          <div class="launch-meta">BUILD IN PROGRESS</div>
+        </article>
+
+        <article class="feature-card reveal">
+          <div class="feature-number">02</div>
+          <div class="feature-icon">
+            <svg viewBox="0 0 48 48">
+              <path d="M24 5 39 12v10c0 10-6.1 17-15 21-8.9-4-15-11-15-21V12l15-7Z"/>
+              <path d="m17 24 5 5 10-11"/>
+            </svg>
+          </div>
+          <h3>Quality gates</h3>
+          <p>Builds, tests and custom checks decide whether a run may continue.</p>
+          <div class="tag-row"><span>TESTS</span><span>BUILD</span><span>CUSTOM</span></div>
+        </article>
+
+        <article class="feature-card reveal">
+          <div class="feature-number">03</div>
+          <div class="feature-icon">
+            <svg viewBox="0 0 48 48">
+              <path d="M7 24c4.7-7.4 10.3-11 17-11s12.3 3.6 17 11c-4.7 7.4-10.3 11-17 11S11.7 31.4 7 24Z"/>
+              <circle cx="24" cy="24" r="5"/>
+            </svg>
+          </div>
+          <h3>AI code review</h3>
+          <p>Dedicated review agents can block progress until concerns are resolved.</p>
+          <div class="review-status"><i></i> NO CONCERNS</div>
+        </article>
+
+        <article class="feature-card reveal">
+          <div class="feature-number">04</div>
+          <div class="feature-icon">
+            <svg viewBox="0 0 48 48">
+              <path d="M10 35V15l8-5 8 5v20l-8 5-8-5ZM26 20l8-5 5 3v15l-5 3-8-5"/>
+              <path d="M18 10v30M34 15v21"/>
+            </svg>
+          </div>
+          <h3>Isolated execution</h3>
+          <p>Build, test and agent workloads run in controlled Docker-based environments.</p>
+          <div class="code-chip">runner / isolated</div>
+        </article>
+
+        <article class="feature-card reveal">
+          <div class="feature-number">05</div>
+          <div class="feature-icon">
+            <svg viewBox="0 0 48 48">
+              <circle cx="12" cy="12" r="4"/>
+              <circle cx="36" cy="12" r="4"/>
+              <circle cx="24" cy="36" r="4"/>
+              <path d="M15.5 14 22 32M32.5 14 26 32M16 12h16"/>
+            </svg>
+          </div>
+          <h3>Multi-agent execution</h3>
+          <p>Assign different providers and models to coding, reviewing and verification roles.</p>
+          <div class="agent-stack">
+            <span>A</span><span>R</span><span>Q</span>
+          </div>
+        </article>
+
+        <article class="feature-card feature-wide reveal">
+          <div class="feature-number">06</div>
+          <div class="feature-icon">
+            <svg viewBox="0 0 48 48">
+              <circle cx="12" cy="13" r="4"/>
+              <circle cx="12" cy="35" r="4"/>
+              <circle cx="36" cy="24" r="4"/>
+              <path d="M12 17v14M16 13h7c8 0 13 4 13 11M16 35h7c8 0 13-4 13-11"/>
+            </svg>
+          </div>
+          <h3>Git workflow automation</h3>
+          <p>
+            Work on dedicated branches and automate the path from code changes to pull or merge requests
+            across supported SCM platforms.
+          </p>
+          <div class="git-visual">
+            <span class="git-dot"></span><span class="git-line"></span><span class="git-dot"></span>
+            <span class="branch-line"></span><span class="git-dot branch-dot"></span>
+            <small>main</small><small>agent/task</small>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="workflow" class="section workflow-section">
+      <div class="section-heading centered reveal">
+        <div class="eyebrow">WORKFLOW ENGINE</div>
+        <h2>From request to verified change.</h2>
+        <p>
+          A run is a graph of explicit decisions. Success, failure and recovery are part of the workflow —
+          not hidden inside an agent conversation.
+        </p>
+      </div>
+
+      <div class="workflow-stage reveal">
+        <div class="stage-grid"></div>
+
+        <div class="stage-node stage-start">
+          <span class="node-kicker">INPUT</span>
+          <strong>Task</strong>
+          <small>Change request</small>
         </div>
 
-        <div class="principles" aria-label="Overseer principles">
-          <div>
-            <span>01</span>
-            <strong>Observe</strong>
-            <p>Understand what autonomous systems are doing.</p>
-          </div>
-          <div>
-            <span>02</span>
-            <strong>Prevent</strong>
-            <p>Stop bad outcomes before they become releases.</p>
-          </div>
-          <div>
-            <span>03</span>
-            <strong>Intervene</strong>
-            <p>Keep humans in control when it matters.</p>
-          </div>
+        <div class="stage-edge edge-1"><span></span></div>
+
+        <div class="stage-node stage-agent">
+          <span class="node-kicker">AGENT</span>
+          <strong>Implement</strong>
+          <small>Write code</small>
+        </div>
+
+        <div class="stage-edge edge-2"><span></span></div>
+
+        <div class="stage-node stage-quality">
+          <span class="node-kicker">GATE</span>
+          <strong>Quality</strong>
+          <small>Build & tests</small>
+        </div>
+
+        <div class="stage-edge edge-3"><span></span></div>
+
+        <div class="stage-node stage-review">
+          <span class="node-kicker">REVIEW</span>
+          <strong>Inspect</strong>
+          <small>AI review</small>
+        </div>
+
+        <div class="stage-edge edge-4"><span></span></div>
+
+        <div class="stage-node stage-pr">
+          <span class="node-kicker">SCM</span>
+          <strong>Pull Request</strong>
+          <small>Ready for human review</small>
+        </div>
+
+        <div class="stage-recovery-label">FAILURE PATH</div>
+        <div class="recovery-line recovery-a"></div>
+        <div class="recovery-line recovery-b"></div>
+        <div class="stage-node stage-recover">
+          <span class="node-kicker warning">RECOVERY</span>
+          <strong>Fix & Retry</strong>
+          <small>Route failures deliberately</small>
         </div>
       </div>
 
-      <div class="visual" aria-hidden="true">
-        <div class="scanner">
-          <div class="scanner-ring ring-1"></div>
-          <div class="scanner-ring ring-2"></div>
-          <div class="scanner-ring ring-3"></div>
-          <div class="scanner-axis axis-x"></div>
-          <div class="scanner-axis axis-y"></div>
-          <div class="scanner-core">
-            <span class="core-dot"></span>
-          </div>
-          <div class="scanner-beam"></div>
-          <span class="node node-a"></span>
-          <span class="node node-b"></span>
-          <span class="node node-c"></span>
-          <span class="node node-d"></span>
+      <div class="workflow-foot reveal">
+        <div>
+          <span>OBSERVE</span>
+          <p>Live run state, node status and execution feedback.</p>
         </div>
-
-        <div class="hud hud-top">
-          <span>SYSTEM</span>
-          <strong>STANDBY</strong>
+        <div>
+          <span>PREVENT</span>
+          <p>Stop unsafe or low-quality output with explicit gates.</p>
         </div>
-
-        <div class="hud hud-bottom">
-          <span>RELEASE</span>
-          <strong>LOCKED</strong>
+        <div>
+          <span>INTERVENE</span>
+          <p>Cancel, retry or redirect a run when human judgement is needed.</p>
         </div>
       </div>
-    </main>
+    </section>
 
-    <footer>
+    <section class="section control-section">
+      <div class="control-panel reveal">
+        <div class="control-copy">
+          <div class="eyebrow">CONTROL LAYER</div>
+          <h2>The agent is not<br>the authority.</h2>
+          <p>
+            Overseer separates autonomous execution from release authority. Agents can act,
+            but workflows define what is allowed to happen next.
+          </p>
+          <ul class="control-list">
+            <li><span>01</span> Explicit success and failure paths</li>
+            <li><span>02</span> Configurable review and quality policies</li>
+            <li><span>03</span> Retry, recovery and cancellation controls</li>
+            <li><span>04</span> Human-visible execution state</li>
+          </ul>
+        </div>
+
+        <div class="control-visual">
+          <div class="radar">
+            <div class="radar-ring r1"></div>
+            <div class="radar-ring r2"></div>
+            <div class="radar-ring r3"></div>
+            <div class="radar-axis x"></div>
+            <div class="radar-axis y"></div>
+            <div class="radar-beam"></div>
+            <div class="radar-core">
+              <span></span>
+            </div>
+            <i class="signal s1"></i>
+            <i class="signal s2"></i>
+            <i class="signal s3"></i>
+          </div>
+          <div class="control-badge badge-a"><span>RUN</span><strong>OBSERVED</strong></div>
+          <div class="control-badge badge-b"><span>POLICY</span><strong>ENFORCED</strong></div>
+          <div class="control-badge badge-c"><span>HUMAN</span><strong>IN CONTROL</strong></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="integrations" class="section integrations">
+      <div class="section-heading reveal">
+        <div class="eyebrow">INTEGRATIONS</div>
+        <h2>Bring the tools.<br><span>Overseer runs the loop.</span></h2>
+      </div>
+
+      <div class="integration-grid">
+        <div class="integration-group reveal">
+          <span class="group-label">AI PROVIDERS</span>
+          <div class="integration-list">
+            <div class="integration-item"><strong>OpenAI</strong><span>Agent provider</span></div>
+            <div class="integration-item"><strong>Anthropic Claude</strong><span>Agent provider</span></div>
+            <div class="integration-item"><strong>Google Gemini</strong><span>Agent provider</span></div>
+            <div class="integration-item"><strong>Ollama</strong><span>Local models</span></div>
+          </div>
+        </div>
+
+        <div class="integration-group reveal">
+          <span class="group-label">SOURCE CONTROL</span>
+          <div class="integration-list">
+            <div class="integration-item"><strong>GitHub</strong><span>Repositories · Pull Requests</span></div>
+            <div class="integration-item"><strong>GitLab</strong><span>Repositories · Merge Requests</span></div>
+            <div class="integration-item"><strong>Git</strong><span>Branch & commit automation</span></div>
+          </div>
+        </div>
+
+        <div class="integration-group reveal">
+          <span class="group-label">EXECUTION</span>
+          <div class="integration-list">
+            <div class="integration-item"><strong>Docker</strong><span>Isolated workloads</span></div>
+            <div class="integration-item"><strong>Quality Gates</strong><span>Build · Test · Custom checks</span></div>
+            <div class="integration-item"><strong>Review Gates</strong><span>AI-assisted inspection</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="coming-soon" class="section final-cta">
+      <div class="cta-grid reveal">
+        <div>
+          <div class="eyebrow">PRIVATE DEVELOPMENT</div>
+          <h2>Overseer is<br><span>coming soon.</span></h2>
+        </div>
+        <div class="cta-copy">
+          <p>
+            The platform is currently under active development.
+            Public source code is not available.
+          </p>
+          <div class="launch-status">
+            <div class="launch-status-head">
+              <span>DEVELOPMENT STATUS</span>
+              <strong>ACTIVE</strong>
+            </div>
+            <div class="status-track"><span></span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <a class="brand footer-brand" href="#top">
+      <span class="brand-icon">
+        <svg viewBox="0 0 54 54">
+          <path d="M27 5.5 44 15v19L27 43.5 10 34V15L27 5.5Z" class="logo-frame"/>
+          <path d="M15.5 26.8c3.2-5.7 7.1-8.6 11.5-8.6s8.3 2.9 11.5 8.6c-3.2 5.7-7.1 8.6-11.5 8.6s-8.3-2.9-11.5-8.6Z" class="logo-eye"/>
+          <circle cx="27" cy="26.8" r="5.3" class="logo-core"/>
+        </svg>
+      </span>
+      <span class="brand-copy">
+        <strong>OVERSEER</strong>
+        <small>OBSERVE · PREVENT · INTERVENE</small>
+      </span>
+    </a>
+
+    <div class="footer-meta">
       <span>© <span id="year"></span> Overseer</span>
+      <span>Autonomous Software Engineering</span>
       <span>Private project · Source code not public</span>
-    </footer>
-  </div>
+    </div>
+  </footer>
 
-  <script>
-    document.getElementById("year").textContent = new Date().getFullYear();
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
