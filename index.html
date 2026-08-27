@@ -1,527 +1,868 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#050913" />
-  <meta name="description" content="Overseer orchestrates autonomous software engineering workflows with agents, quality gates, reviews, Git automation and controlled intervention." />
-  <title>Overseer — Autonomous Software Engineering</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css" />
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#050914">
+<meta name="description" content="Overseer orchestrates autonomous software engineering workflows with AI agents, quality gates, reviews, Git automation and human control.">
+<title>Overseer — Autonomous Software Engineering</title>
+<style>
+:root{
+  color-scheme:dark;
+  --bg:#050914;
+  --bg2:#08111e;
+  --panel:#0a1726;
+  --panel2:#0c1b2d;
+  --line:#183247;
+  --line2:#2f5f79;
+  --text:#edf8ff;
+  --soft:#a1b6c7;
+  --muted:#658095;
+  --cyan:#5edcff;
+  --cyan2:#98ebff;
+  --green:#8dffc0;
+  --amber:#ffc86b;
+  --red:#ff7d88;
+  --shadow:0 30px 90px rgba(0,0,0,.38);
+  --radius:2px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  min-width:320px;
+  background:
+    radial-gradient(circle at 80% 10%,rgba(60,183,255,.08),transparent 27rem),
+    radial-gradient(circle at 12% 55%,rgba(94,255,195,.035),transparent 23rem),
+    var(--bg);
+  color:var(--text);
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+}
+body:before{
+  content:"";
+  position:fixed;
+  inset:0;
+  z-index:-1;
+  pointer-events:none;
+  background-image:
+    linear-gradient(rgba(94,220,255,.025) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(94,220,255,.025) 1px,transparent 1px);
+  background-size:48px 48px;
+}
+a{color:inherit;text-decoration:none}
+.wrap{width:min(1380px,calc(100% - 48px));margin:auto}
+.kicker{color:var(--cyan);font-size:10px;font-weight:800;letter-spacing:.2em;text-transform:uppercase}
+h1,h2,h3{font-family:"Segoe UI",Inter,system-ui,sans-serif}
+h1,h2{letter-spacing:-.05em}
+h1{font-size:clamp(58px,7vw,108px);line-height:.9;margin:20px 0 0}
+h2{font-size:clamp(44px,5vw,76px);line-height:.98;margin:14px 0 0}
+h1 span,h2 span{display:block;color:#8199ad;font-weight:500}
+p{color:var(--soft);line-height:1.72}
+.nav-shell{
+  position:sticky;top:0;z-index:20;
+  padding:14px 0;
+  background:linear-gradient(to bottom,rgba(5,9,20,.96),rgba(5,9,20,.78),rgba(5,9,20,0));
+}
+.nav{
+  min-height:66px;
+  display:grid;grid-template-columns:1fr auto 1fr;align-items:center;
+  padding:0 18px;border:1px solid var(--line);
+  background:rgba(6,14,25,.78);backdrop-filter:blur(12px);
+}
+.brand{display:flex;align-items:center;gap:12px;width:max-content}
+.logo{width:40px;height:40px}
+.logo *{vector-effect:non-scaling-stroke}
+.brand-copy{display:flex;flex-direction:column}
+.brand-copy b{font-size:17px;letter-spacing:.18em}
+.brand-copy small{margin-top:2px;color:var(--muted);font-size:8px;font-weight:800;letter-spacing:.13em}
+.nav-links{display:flex;gap:28px;font-size:11px;font-weight:700;color:#829caf}
+.nav-links a:hover{color:var(--text)}
+.status{justify-self:end;display:flex;align-items:center;gap:8px;padding:9px 11px;border:1px solid var(--line);font-size:9px;font-weight:800;letter-spacing:.13em;color:#aac0cf}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 14px rgba(141,255,192,.65)}
+
+.hero{padding:86px 0 108px}
+.hero-grid{display:grid;grid-template-columns:minmax(0,.92fr) minmax(520px,1.08fr);gap:72px;align-items:center}
+.hero-copy>p{max-width:680px;font-size:18px;margin:29px 0 0}
+.actions{display:flex;gap:12px;margin-top:34px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 18px;border:1px solid var(--line);font-size:10px;font-weight:800;letter-spacing:.11em;text-transform:uppercase}
+.btn.primary{border-color:#39718b;background:linear-gradient(180deg,rgba(94,220,255,.15),rgba(94,220,255,.06));color:#e2f9ff}
+.btn.secondary{color:#91aabd;background:#08121f}
+.proof{display:grid;grid-template-columns:repeat(3,1fr);margin-top:48px;border-block:1px solid var(--line)}
+.proof div{padding:17px 16px 17px 0}
+.proof div+div{padding-left:18px;border-left:1px solid var(--line)}
+.proof b{display:block;font-size:11px}
+.proof span{display:block;margin-top:5px;color:var(--muted);font-size:10px}
+
+.console-wrap{position:relative}
+.console{
+  border:1px solid var(--line2);
+  background:linear-gradient(180deg,#0a1828,#07111d);
+  box-shadow:var(--shadow);
+}
+.console-bar{min-height:48px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:0 14px;border-bottom:1px solid var(--line);font-size:8px;font-weight:800;letter-spacing:.15em;color:#6f889c}
+.console-dots{display:flex;gap:6px}.console-dots i{width:6px;height:6px;border:1px solid #48647a;border-radius:50%}
+.console-live{justify-self:end;color:var(--green);display:flex;align-items:center;gap:7px}
+.console-body{padding:20px}
+.objective{display:flex;justify-content:space-between;gap:20px;align-items:flex-start}
+.micro{display:block;color:#607b90;font-size:8px;font-weight:800;letter-spacing:.14em;margin-bottom:7px}
+.objective b{font-size:13px}
+.id{padding:7px 8px;border:1px solid var(--line);color:var(--cyan);font-size:8px;font-weight:800;letter-spacing:.12em}
+.runflow{margin-top:20px;padding:16px;border:1px solid var(--line);background:#06101b}
+.run-node{display:grid;grid-template-columns:34px 1fr 15px;gap:10px;align-items:center;padding:9px 10px;border:1px solid var(--line);background:#0a1725}
+.run-node+.link{height:12px;width:1px;margin-left:27px;background:var(--line2)}
+.run-num{width:29px;height:29px;display:grid;place-items:center;border:1px solid var(--line2);font-size:8px;color:#7894a8}
+.run-node small{display:block;color:#60798e;font-size:7px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+.run-node b{display:block;margin-top:3px;font-size:11px}
+.run-node em{width:9px;height:9px;border:1px solid var(--line2);border-radius:50%;font-style:normal}
+.run-node.done{border-color:#315d50}.run-node.done .run-num{color:var(--green);border-color:#3c7360}.run-node.done em{background:var(--green);border-color:var(--green);box-shadow:0 0 12px rgba(141,255,192,.5)}
+.run-node.active{border-color:#397b99;box-shadow:inset 0 0 28px rgba(94,220,255,.035)}.run-node.active .run-num{color:var(--cyan);border-color:#397b99}.run-node.active em{border-color:var(--cyan);box-shadow:0 0 12px rgba(94,220,255,.65)}
+.metrics{display:grid;grid-template-columns:repeat(3,1fr);margin-top:14px;border:1px solid var(--line)}
+.metrics div{padding:11px}.metrics div+div{border-left:1px solid var(--line)}
+.metrics b{font-size:9px}.ok{color:var(--green)!important}
+.logs{margin-top:14px;border-top:1px solid var(--line);padding-top:12px}
+.log-head{display:flex;justify-content:space-between;color:#647f94;font-size:8px;font-weight:800;letter-spacing:.12em}
+.log{display:grid;grid-template-columns:58px 50px 1fr;gap:7px;padding-top:8px;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:8px;color:#8ca2b3}
+.log time{color:#536c7f}.log b{color:var(--cyan)}
+.float{position:absolute;padding:11px 13px;background:#07111d;border:1px solid var(--line2);box-shadow:0 18px 50px rgba(0,0,0,.3)}
+.float small{display:block;color:var(--cyan);font-size:7px;font-weight:800;letter-spacing:.14em}.float b{display:block;margin-top:5px;font-size:9px}
+.float.a{right:-24px;top:66px}.float.b{left:-25px;bottom:35px}
+
+.band{border-block:1px solid var(--line);background:#07101b}
+.band .wrap{display:flex;justify-content:space-between;gap:18px;overflow:hidden;padding:13px 0;color:#698397;font-size:8px;font-weight:800;letter-spacing:.14em;white-space:nowrap}
+.band i{width:4px;height:4px;align-self:center;border:1px solid var(--cyan);transform:rotate(45deg)}
+
+.section{padding:124px 0}
+.lead{max-width:800px}.lead p{max-width:650px;font-size:16px;margin-top:21px}
+.feature-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:52px}
+.card{min-height:305px;padding:22px;border:1px solid var(--line);background:linear-gradient(180deg,rgba(10,23,38,.73),rgba(6,14,24,.68));position:relative}
+.card.wide{grid-column:span 2}.card .num{position:absolute;right:18px;top:18px;color:#456074;font-size:8px;font-weight:800;letter-spacing:.14em}
+.icon{width:44px;height:44px;display:grid;place-items:center;border:1px solid var(--line)}
+.icon svg{width:27px;height:27px;fill:none;stroke:var(--cyan);stroke-width:1.5}
+.card h3{margin:34px 0 0;font-size:21px}.card p{font-size:13px;color:#8ca4b6}
+.chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:25px}.chips span{padding:7px 8px;border:1px solid var(--line);font-size:8px;font-weight:800;letter-spacing:.1em;color:#7893a7}
+
+.workflow{padding-top:76px}
+.center{text-align:center;margin-inline:auto}.center p{margin-inline:auto}
+.flowbox{margin-top:58px;border:1px solid var(--line);background:#06101b;padding:22px;overflow:hidden}
+.flow-svg{display:block;width:100%;height:auto;min-height:410px}
+.flow-svg text{font-family:Inter,system-ui,sans-serif}
+.flow-svg .box{fill:#0a1726;stroke:#2c5971;stroke-width:1}
+.flow-svg .recovery{stroke:#725b31}
+.flow-svg .ey{fill:#5edcff;font-size:8px;font-weight:800;letter-spacing:1px}
+.flow-svg .ey.warn{fill:#ffc86b}
+.flow-svg .title{fill:#edf8ff;font-size:15px;font-weight:700}
+.flow-svg .desc{fill:#71899d;font-size:9px}
+.flow-svg .path{fill:none;stroke:#376c85;stroke-width:1.4}
+.flow-svg .path.failure{stroke:#8e6c35}
+.flow-svg .arrow{fill:#5edcff}.flow-svg .arrow.warn{fill:#ffc86b}
+.flow-svg .label{fill:#d6aa5e;font-size:8px;font-weight:800;letter-spacing:1px}
+.flow-svg .pulse{stroke:#5edcff;stroke-width:3;stroke-linecap:round;stroke-dasharray:22 220;animation:dash 3s linear infinite}
+.flow-svg .pulse-fail{stroke:#ffc86b;stroke-width:2;stroke-dasharray:15 170;animation:dash2 3.2s linear infinite}
+@keyframes dash{to{stroke-dashoffset:-242}}
+@keyframes dash2{to{stroke-dashoffset:-185}}
+.triad{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--line);border-top:0}
+.triad div{padding:22px}.triad div+div{border-left:1px solid var(--line)}
+.triad b{color:var(--cyan);font-size:9px;letter-spacing:.14em}.triad p{font-size:12px;color:#8199ac;margin:8px 0 0}
+
+.control{display:grid;grid-template-columns:.92fr 1.08fr;border:1px solid var(--line);background:linear-gradient(135deg,#091625,#06101b)}
+.control-copy{padding:clamp(32px,5vw,70px);align-self:center}.control-copy>p{max-width:570px}
+.control-list{list-style:none;margin:30px 0 0;padding:0;border-top:1px solid var(--line)}
+.control-list li{padding:13px 0;border-bottom:1px solid var(--line);font-size:12px;color:#9db2c2}.control-list b{display:inline-block;width:34px;color:var(--cyan);font-size:8px}
+.radar-wrap{min-height:560px;position:relative;display:grid;place-items:center;border-left:1px solid var(--line);overflow:hidden}
+.radar{width:min(64%,390px);aspect-ratio:1;border:1px solid #32677f;border-radius:50%;position:relative}
+.radar:before,.radar:after{content:"";position:absolute;border:1px solid var(--line2);border-radius:50%}.radar:before{inset:18%}.radar:after{inset:36%}
+.cross-x,.cross-y{position:absolute;background:var(--line2)}.cross-x{left:5%;right:5%;top:50%;height:1px}.cross-y{top:5%;bottom:5%;left:50%;width:1px}
+.beam{position:absolute;left:50%;top:50%;width:45%;height:1px;transform-origin:left;background:linear-gradient(90deg,var(--cyan),transparent);animation:spin 6s linear infinite}
+.core{position:absolute;left:50%;top:50%;width:12px;height:12px;transform:translate(-50%,-50%);border-radius:50%;background:var(--cyan);box-shadow:0 0 18px var(--cyan)}
+@keyframes spin{to{transform:rotate(360deg)}}
+.badge{position:absolute;min-width:135px;padding:10px 12px;border:1px solid var(--line);background:#07111d}.badge small{display:block;color:#647d91;font-size:7px;font-weight:800;letter-spacing:.12em}.badge b{display:block;margin-top:5px;color:var(--green);font-size:9px}
+.badge.one{left:7%;top:17%}.badge.two{right:6%;top:31%}.badge.three{left:12%;bottom:15%}
+
+.integrations{padding-top:20px}
+.integr-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:48px}
+.integr{border:1px solid var(--line);background:#07111d}.integr>span{display:block;padding:13px 15px;border-bottom:1px solid var(--line);color:var(--cyan);font-size:8px;font-weight:800;letter-spacing:.15em}
+.integr-row{display:flex;justify-content:space-between;gap:20px;padding:16px 15px;border-bottom:1px solid var(--line)}.integr-row:last-child{border:0}
+.integr-row b{font-size:12px}.integr-row small{color:#6f879a;text-align:right}
+
+.cta{padding-top:20px}
+.cta-box{display:grid;grid-template-columns:1.15fr .85fr;gap:70px;align-items:end;padding:clamp(30px,5vw,66px);border:1px solid var(--line2);background:radial-gradient(circle at 90% 30%,rgba(94,220,255,.07),transparent 24rem),#081522;box-shadow:var(--shadow)}
+.cta-right p{margin-top:0}
+.progress-head{display:flex;justify-content:space-between;margin-top:28px;color:#698297;font-size:8px;font-weight:800;letter-spacing:.13em}.progress-head b{color:var(--green)}
+.progress{height:3px;margin-top:10px;background:#102637}.progress span{display:block;width:68%;height:100%;background:linear-gradient(90deg,var(--cyan),var(--green))}
+
+footer{padding:28px 0 34px}.footer{display:flex;justify-content:space-between;align-items:center;gap:24px;border-top:1px solid var(--line);padding-top:24px}.footer-meta{display:flex;gap:22px;color:#597286;font-size:8px;font-weight:700;letter-spacing:.07em}
+
+@media(max-width:1100px){
+  .hero-grid{grid-template-columns:1fr}.console-wrap{max-width:760px}
+  .feature-grid{grid-template-columns:repeat(2,1fr)}.card.wide{grid-column:span 2}
+  .control{grid-template-columns:1fr}.radar-wrap{border-left:0;border-top:1px solid var(--line)}
+}
+@media(max-width:760px){
+  .wrap{width:min(100% - 28px,1380px)}
+  .nav{grid-template-columns:1fr auto}.nav-links{display:none}.brand-copy small{display:none}.status{font-size:0}.status:after{content:"BETA";font-size:8px}
+  .hero{padding:52px 0 78px}.hero-copy>p{font-size:16px}.actions{flex-direction:column}.btn{width:100%}
+  .proof{grid-template-columns:1fr}.proof div+div{border-left:0;border-top:1px solid var(--line);padding-left:0}
+  .float{display:none}.console-bar{grid-template-columns:1fr 1fr}.console-bar>span:nth-child(2){display:none}
+  .metrics{grid-template-columns:1fr}.metrics div+div{border-left:0;border-top:1px solid var(--line)}
+  .section{padding:88px 0}.feature-grid{grid-template-columns:1fr}.card.wide{grid-column:auto}
+  .flowbox{padding:8px;overflow-x:auto}.flow-svg{width:950px;max-width:none;min-height:420px}
+  .triad,.integr-grid,.cta-box{grid-template-columns:1fr}.triad div+div{border-left:0;border-top:1px solid var(--line)}
+  .radar-wrap{min-height:420px}.badge.one{left:3%;top:10%}.badge.two{right:3%;top:24%}.badge.three{left:5%;bottom:9%}
+  .integr-row{flex-direction:column;gap:5px}.integr-row small{text-align:left}
+  .cta-box{gap:28px}.footer{align-items:flex-start;flex-direction:column}.footer-meta{flex-direction:column;gap:6px}
+}
+@media(max-width:480px){
+  h1{font-size:clamp(48px,15vw,67px)}h2{font-size:clamp(40px,12vw,58px)}
+  .console-body{padding:13px}.objective{flex-direction:column}.log{grid-template-columns:44px 42px 1fr}
+}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}.beam,.flow-svg .pulse,.flow-svg .pulse-fail{animation:none}
+}
+
+/* v3.1 progressive JavaScript enhancement */
+[data-reveal]{
+  transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.2,1);
+}
+.anim-prep [data-reveal]{
+  opacity:.45;
+  transform:translateY(18px);
+}
+.anim-prep [data-reveal].is-visible{
+  opacity:1;
+  transform:none;
+}
+.run-node{
+  transition:border-color .35s ease,box-shadow .35s ease,background .35s ease,opacity .35s ease;
+}
+.run-node .run-num,
+.run-node em{
+  transition:border-color .35s ease,color .35s ease,background .35s ease,box-shadow .35s ease;
+}
+.run-node.js-done{
+  border-color:#315d50;
+}
+.run-node.js-done .run-num{
+  color:var(--green);
+  border-color:#3c7360;
+}
+.run-node.js-done em{
+  background:var(--green);
+  border-color:var(--green);
+  box-shadow:0 0 12px rgba(141,255,192,.5);
+}
+.run-node.js-active{
+  border-color:#397b99;
+  background:#0b1b2d;
+  box-shadow:inset 0 0 32px rgba(94,220,255,.05),0 0 24px rgba(94,220,255,.035);
+}
+.run-node.js-active .run-num{
+  color:var(--cyan);
+  border-color:#397b99;
+}
+.run-node.js-active em{
+  background:transparent;
+  border-color:var(--cyan);
+  box-shadow:0 0 14px rgba(94,220,255,.75);
+}
+.run-node.js-idle{
+  opacity:.62;
+}
+.log.flash{
+  animation:logFlash .55s ease;
+}
+@keyframes logFlash{
+  0%{background:rgba(94,220,255,.10);transform:translateX(2px)}
+  100%{background:transparent;transform:none}
+}
+.console{
+  transform:translate3d(0,0,0);
+  transition:transform .25s ease-out;
+}
+.console-wrap:hover .console{
+  box-shadow:0 36px 105px rgba(0,0,0,.42),0 0 70px rgba(94,220,255,.055);
+}
+.flow-svg g[data-step] .box{
+  transition:stroke .35s ease,fill .35s ease,filter .35s ease;
+}
+.flow-svg g[data-step].wf-active .box{
+  stroke:#5edcff;
+  fill:#0b1c2d;
+  filter:drop-shadow(0 0 6px rgba(94,220,255,.28));
+}
+.flow-svg g[data-step].wf-done .box{
+  stroke:#4c856b;
+}
+.flow-svg g[data-step].wf-recovery .box{
+  stroke:#ffc86b;
+  fill:#1a1720;
+  filter:drop-shadow(0 0 5px rgba(255,200,107,.22));
+}
+.flow-svg .js-success{
+  opacity:.2;
+  transition:opacity .3s ease;
+}
+.flow-svg .js-success.path-on{
+  opacity:1;
+}
+.flow-svg .js-failure{
+  opacity:.16;
+  transition:opacity .3s ease;
+}
+.flow-svg .js-failure.path-on{
+  opacity:1;
+}
+.badge{
+  transition:transform .35s ease,border-color .35s ease,box-shadow .35s ease;
+}
+.badge.js-ping{
+  transform:translateY(-3px);
+  border-color:#356e86;
+  box-shadow:0 0 28px rgba(94,220,255,.08);
+}
+.badge.js-ping b{
+  text-shadow:0 0 12px rgba(141,255,192,.4);
+}
+.radar.js-scan{
+  box-shadow:0 0 60px rgba(94,220,255,.09);
+}
+@media(max-width:760px){
+  .anim-prep [data-reveal]{
+    transform:translateY(10px);
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  [data-reveal],
+  .run-node,
+  .run-node .run-num,
+  .run-node em,
+  .flow-svg g[data-step] .box,
+  .badge,
+  .console{
+    transition:none!important;
+  }
+  .log.flash{
+    animation:none!important;
+  }
+}
+
+</style>
 </head>
 <body>
-  <div class="noise"></div>
-  <div class="page-glow glow-a"></div>
-  <div class="page-glow glow-b"></div>
 
-  <header class="nav-shell">
-    <nav class="nav">
-      <a class="brand" href="#top" aria-label="Overseer home">
-        <span class="brand-icon" aria-hidden="true">
-          <svg viewBox="0 0 54 54">
-            <path d="M27 5.5 44 15v19L27 43.5 10 34V15L27 5.5Z" class="logo-frame"/>
-            <path d="M15.5 26.8c3.2-5.7 7.1-8.6 11.5-8.6s8.3 2.9 11.5 8.6c-3.2 5.7-7.1 8.6-11.5 8.6s-8.3-2.9-11.5-8.6Z" class="logo-eye"/>
-            <circle cx="27" cy="26.8" r="5.3" class="logo-core"/>
-            <path d="M27 10v7M27 36.5V42" class="logo-line"/>
-          </svg>
-        </span>
-        <span class="brand-copy">
-          <strong>OVERSEER</strong>
-          <small>OBSERVE · PREVENT · INTERVENE</small>
-        </span>
-      </a>
-
-      <div class="nav-links">
-        <a href="#capabilities">Capabilities</a>
-        <a href="#workflow">Workflow</a>
-        <a href="#integrations">Integrations</a>
-      </div>
-
-      <a class="nav-status" href="#coming-soon">
-        <span></span>
-        PRIVATE BETA
-      </a>
-    </nav>
-  </header>
-
-  <main id="top">
-    <section class="hero section">
-      <div class="hero-grid">
-        <div class="hero-copy reveal">
-          <div class="eyebrow">
-            <span class="eyebrow-dot"></span>
-            AUTONOMOUS SOFTWARE ENGINEERING
-          </div>
-
-          <h1>
-            Give agents work.
-            <span>Keep control.</span>
-          </h1>
-
-          <p class="hero-text">
-            Overseer orchestrates AI-powered software engineering workflows from task to pull request —
-            with automated checks, reviews, recovery paths and human intervention built in.
-          </p>
-
-          <div class="hero-actions">
-            <a class="button primary" href="#workflow">See how it works</a>
-            <a class="button secondary" href="#capabilities">Explore capabilities</a>
-          </div>
-
-          <div class="hero-proof">
-            <div>
-              <strong>Multi-agent</strong>
-              <span>Code · Review · Quality</span>
-            </div>
-            <div>
-              <strong>Controlled</strong>
-              <span>Gates · Recovery · Approval</span>
-            </div>
-            <div>
-              <strong>Integrated</strong>
-              <span>GitHub · GitLab · LLM Providers</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="hero-console reveal">
-          <div class="console-window">
-            <div class="console-topbar">
-              <div class="window-dots"><span></span><span></span><span></span></div>
-              <div class="console-title">RUN / TASK-142</div>
-              <div class="console-state">
-                <span class="state-dot"></span>
-                ACTIVE
-              </div>
-            </div>
-
-            <div class="console-body">
-              <div class="run-header">
-                <div>
-                  <span class="micro-label">OBJECTIVE</span>
-                  <strong>Implement feature and prepare pull request</strong>
-                </div>
-                <span class="run-id">OVR-142</span>
-              </div>
-
-              <div class="workflow-board hero-workflow">
-                <div class="wf-node done">
-                  <div class="node-icon">01</div>
-                  <div>
-                    <span>Prepare</span>
-                    <strong>Repository</strong>
-                  </div>
-                  <i>✓</i>
-                </div>
-
-                <div class="connector active-line"><span></span></div>
-
-                <div class="wf-node active">
-                  <div class="node-icon">02</div>
-                  <div>
-                    <span>Agent</span>
-                    <strong>Implement</strong>
-                  </div>
-                  <i></i>
-                </div>
-
-                <div class="connector"><span></span></div>
-
-                <div class="wf-node idle">
-                  <div class="node-icon">03</div>
-                  <div>
-                    <span>Quality</span>
-                    <strong>Test Suite</strong>
-                  </div>
-                  <i></i>
-                </div>
-
-                <div class="connector"><span></span></div>
-
-                <div class="wf-node idle">
-                  <div class="node-icon">04</div>
-                  <div>
-                    <span>Review</span>
-                    <strong>Code Review</strong>
-                  </div>
-                  <i></i>
-                </div>
-
-                <div class="connector"><span></span></div>
-
-                <div class="wf-node idle">
-                  <div class="node-icon">05</div>
-                  <div>
-                    <span>SCM</span>
-                    <strong>Open PR</strong>
-                  </div>
-                  <i></i>
-                </div>
-              </div>
-
-              <div class="console-metrics">
-                <div>
-                  <span class="micro-label">AGENT</span>
-                  <strong>OpenAI</strong>
-                </div>
-                <div>
-                  <span class="micro-label">BRANCH</span>
-                  <strong>agent/task-142</strong>
-                </div>
-                <div>
-                  <span class="micro-label">GUARDRAILS</span>
-                  <strong class="ok">ENFORCED</strong>
-                </div>
-              </div>
-
-              <div class="activity-stream">
-                <div class="activity-head">
-                  <span>LIVE ACTIVITY</span>
-                  <span class="live-dot">● LIVE</span>
-                </div>
-                <div class="log-line"><span>09:41:02</span><b>agent</b>Analyzing project structure</div>
-                <div class="log-line"><span>09:41:05</span><b>agent</b>Implementing requested change</div>
-                <div class="log-line muted"><span>next</span><b>quality</b>Automated checks queued</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="floating-card card-guard">
-            <span>CONTROL LAYER</span>
-            <strong>Human intervention ready</strong>
-          </div>
-
-          <div class="floating-card card-gate">
-            <span>QUALITY GATES</span>
-            <strong>3 checks configured</strong>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="ticker">
-      <div class="ticker-track">
-        <span>AI AGENTS</span><i></i>
-        <span>WORKFLOW ORCHESTRATION</span><i></i>
-        <span>QUALITY GATES</span><i></i>
-        <span>AUTOMATED REVIEWS</span><i></i>
-        <span>GIT AUTOMATION</span><i></i>
-        <span>RECOVERY FLOWS</span><i></i>
-        <span>HUMAN CONTROL</span><i></i>
-      </div>
-    </section>
-
-    <section id="capabilities" class="section capabilities">
-      <div class="section-heading reveal">
-        <div class="eyebrow">CAPABILITIES</div>
-        <h2>Autonomy without<br><span>blind trust.</span></h2>
-        <p>
-          Overseer treats autonomous coding as an engineering workflow — not a single prompt.
-          Each run can be observed, verified, redirected and stopped.
-        </p>
-      </div>
-
-      <div class="feature-grid">
-        <article class="feature-card feature-wide reveal">
-          <div class="feature-number">01</div>
-          <div class="feature-icon">
-            <svg viewBox="0 0 48 48">
-              <rect x="6" y="8" width="13" height="11" rx="2"/>
-              <rect x="29" y="8" width="13" height="11" rx="2"/>
-              <rect x="18" y="29" width="13" height="11" rx="2"/>
-              <path d="M19 13.5h10M35.5 19v5.5H24.5V29M12.5 19v5.5h12V29"/>
-            </svg>
-          </div>
-          <h3>Visual workflow orchestration</h3>
-          <p>
-            Compose coding, testing, reviews, branching, parallel work and recovery into explicit,
-            repeatable engineering workflows.
-          </p>
-          <div class="mini-flow">
-            <span>CODE</span><i>→</i><span>TEST</span><i>→</i><span>REVIEW</span><i>→</i><span>PR</span>
-          </div>
-        </article>
-
-        <article class="feature-card reveal">
-          <div class="feature-number">02</div>
-          <div class="feature-icon">
-            <svg viewBox="0 0 48 48">
-              <path d="M24 5 39 12v10c0 10-6.1 17-15 21-8.9-4-15-11-15-21V12l15-7Z"/>
-              <path d="m17 24 5 5 10-11"/>
-            </svg>
-          </div>
-          <h3>Quality gates</h3>
-          <p>Builds, tests and custom checks decide whether a run may continue.</p>
-          <div class="tag-row"><span>TESTS</span><span>BUILD</span><span>CUSTOM</span></div>
-        </article>
-
-        <article class="feature-card reveal">
-          <div class="feature-number">03</div>
-          <div class="feature-icon">
-            <svg viewBox="0 0 48 48">
-              <path d="M7 24c4.7-7.4 10.3-11 17-11s12.3 3.6 17 11c-4.7 7.4-10.3 11-17 11S11.7 31.4 7 24Z"/>
-              <circle cx="24" cy="24" r="5"/>
-            </svg>
-          </div>
-          <h3>AI code review</h3>
-          <p>Dedicated review agents can block progress until concerns are resolved.</p>
-          <div class="review-status"><i></i> NO CONCERNS</div>
-        </article>
-
-        <article class="feature-card reveal">
-          <div class="feature-number">04</div>
-          <div class="feature-icon">
-            <svg viewBox="0 0 48 48">
-              <path d="M10 35V15l8-5 8 5v20l-8 5-8-5ZM26 20l8-5 5 3v15l-5 3-8-5"/>
-              <path d="M18 10v30M34 15v21"/>
-            </svg>
-          </div>
-          <h3>Isolated execution</h3>
-          <p>Build, test and agent workloads run in controlled Docker-based environments.</p>
-          <div class="code-chip">runner / isolated</div>
-        </article>
-
-        <article class="feature-card reveal">
-          <div class="feature-number">05</div>
-          <div class="feature-icon">
-            <svg viewBox="0 0 48 48">
-              <circle cx="12" cy="12" r="4"/>
-              <circle cx="36" cy="12" r="4"/>
-              <circle cx="24" cy="36" r="4"/>
-              <path d="M15.5 14 22 32M32.5 14 26 32M16 12h16"/>
-            </svg>
-          </div>
-          <h3>Multi-agent execution</h3>
-          <p>Assign different providers and models to coding, reviewing and verification roles.</p>
-          <div class="agent-stack">
-            <span>A</span><span>R</span><span>Q</span>
-          </div>
-        </article>
-
-        <article class="feature-card feature-wide reveal">
-          <div class="feature-number">06</div>
-          <div class="feature-icon">
-            <svg viewBox="0 0 48 48">
-              <circle cx="12" cy="13" r="4"/>
-              <circle cx="12" cy="35" r="4"/>
-              <circle cx="36" cy="24" r="4"/>
-              <path d="M12 17v14M16 13h7c8 0 13 4 13 11M16 35h7c8 0 13-4 13-11"/>
-            </svg>
-          </div>
-          <h3>Git workflow automation</h3>
-          <p>
-            Work on dedicated branches and automate the path from code changes to pull or merge requests
-            across supported SCM platforms.
-          </p>
-          <div class="git-visual">
-            <span class="git-dot"></span><span class="git-line"></span><span class="git-dot"></span>
-            <span class="branch-line"></span><span class="git-dot branch-dot"></span>
-            <small>main</small><small>agent/task</small>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <section id="workflow" class="section workflow-section">
-      <div class="section-heading centered reveal">
-        <div class="eyebrow">WORKFLOW ENGINE</div>
-        <h2>From request to verified change.</h2>
-        <p>
-          A run is a graph of explicit decisions. Success, failure and recovery are part of the workflow —
-          not hidden inside an agent conversation.
-        </p>
-      </div>
-
-      <div class="workflow-stage reveal">
-        <div class="stage-grid"></div>
-
-        <div class="stage-node stage-start">
-          <span class="node-kicker">INPUT</span>
-          <strong>Task</strong>
-          <small>Change request</small>
-        </div>
-
-        <div class="stage-edge edge-1"><span></span></div>
-
-        <div class="stage-node stage-agent">
-          <span class="node-kicker">AGENT</span>
-          <strong>Implement</strong>
-          <small>Write code</small>
-        </div>
-
-        <div class="stage-edge edge-2"><span></span></div>
-
-        <div class="stage-node stage-quality">
-          <span class="node-kicker">GATE</span>
-          <strong>Quality</strong>
-          <small>Build & tests</small>
-        </div>
-
-        <div class="stage-edge edge-3"><span></span></div>
-
-        <div class="stage-node stage-review">
-          <span class="node-kicker">REVIEW</span>
-          <strong>Inspect</strong>
-          <small>AI review</small>
-        </div>
-
-        <div class="stage-edge edge-4"><span></span></div>
-
-        <div class="stage-node stage-pr">
-          <span class="node-kicker">SCM</span>
-          <strong>Pull Request</strong>
-          <small>Ready for human review</small>
-        </div>
-
-        <div class="stage-recovery-label">FAILURE PATH</div>
-        <div class="recovery-line recovery-a"></div>
-        <div class="recovery-line recovery-b"></div>
-        <div class="stage-node stage-recover">
-          <span class="node-kicker warning">RECOVERY</span>
-          <strong>Fix & Retry</strong>
-          <small>Route failures deliberately</small>
-        </div>
-      </div>
-
-      <div class="workflow-foot reveal">
-        <div>
-          <span>OBSERVE</span>
-          <p>Live run state, node status and execution feedback.</p>
-        </div>
-        <div>
-          <span>PREVENT</span>
-          <p>Stop unsafe or low-quality output with explicit gates.</p>
-        </div>
-        <div>
-          <span>INTERVENE</span>
-          <p>Cancel, retry or redirect a run when human judgement is needed.</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="section control-section">
-      <div class="control-panel reveal">
-        <div class="control-copy">
-          <div class="eyebrow">CONTROL LAYER</div>
-          <h2>The agent is not<br>the authority.</h2>
-          <p>
-            Overseer separates autonomous execution from release authority. Agents can act,
-            but workflows define what is allowed to happen next.
-          </p>
-          <ul class="control-list">
-            <li><span>01</span> Explicit success and failure paths</li>
-            <li><span>02</span> Configurable review and quality policies</li>
-            <li><span>03</span> Retry, recovery and cancellation controls</li>
-            <li><span>04</span> Human-visible execution state</li>
-          </ul>
-        </div>
-
-        <div class="control-visual">
-          <div class="radar">
-            <div class="radar-ring r1"></div>
-            <div class="radar-ring r2"></div>
-            <div class="radar-ring r3"></div>
-            <div class="radar-axis x"></div>
-            <div class="radar-axis y"></div>
-            <div class="radar-beam"></div>
-            <div class="radar-core">
-              <span></span>
-            </div>
-            <i class="signal s1"></i>
-            <i class="signal s2"></i>
-            <i class="signal s3"></i>
-          </div>
-          <div class="control-badge badge-a"><span>RUN</span><strong>OBSERVED</strong></div>
-          <div class="control-badge badge-b"><span>POLICY</span><strong>ENFORCED</strong></div>
-          <div class="control-badge badge-c"><span>HUMAN</span><strong>IN CONTROL</strong></div>
-        </div>
-      </div>
-    </section>
-
-    <section id="integrations" class="section integrations">
-      <div class="section-heading reveal">
-        <div class="eyebrow">INTEGRATIONS</div>
-        <h2>Bring the tools.<br><span>Overseer runs the loop.</span></h2>
-      </div>
-
-      <div class="integration-grid">
-        <div class="integration-group reveal">
-          <span class="group-label">AI PROVIDERS</span>
-          <div class="integration-list">
-            <div class="integration-item"><strong>OpenAI</strong><span>Agent provider</span></div>
-            <div class="integration-item"><strong>Anthropic Claude</strong><span>Agent provider</span></div>
-            <div class="integration-item"><strong>Google Gemini</strong><span>Agent provider</span></div>
-            <div class="integration-item"><strong>Ollama</strong><span>Local models</span></div>
-          </div>
-        </div>
-
-        <div class="integration-group reveal">
-          <span class="group-label">SOURCE CONTROL</span>
-          <div class="integration-list">
-            <div class="integration-item"><strong>GitHub</strong><span>Repositories · Pull Requests</span></div>
-            <div class="integration-item"><strong>GitLab</strong><span>Repositories · Merge Requests</span></div>
-            <div class="integration-item"><strong>Git</strong><span>Branch & commit automation</span></div>
-          </div>
-        </div>
-
-        <div class="integration-group reveal">
-          <span class="group-label">EXECUTION</span>
-          <div class="integration-list">
-            <div class="integration-item"><strong>Docker</strong><span>Isolated workloads</span></div>
-            <div class="integration-item"><strong>Quality Gates</strong><span>Build · Test · Custom checks</span></div>
-            <div class="integration-item"><strong>Review Gates</strong><span>AI-assisted inspection</span></div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="coming-soon" class="section final-cta">
-      <div class="cta-grid reveal">
-        <div>
-          <div class="eyebrow">PRIVATE DEVELOPMENT</div>
-          <h2>Overseer is<br><span>coming soon.</span></h2>
-        </div>
-        <div class="cta-copy">
-          <p>
-            The platform is currently under active development.
-            Public source code is not available.
-          </p>
-          <div class="launch-status">
-            <div class="launch-status-head">
-              <span>DEVELOPMENT STATUS</span>
-              <strong>ACTIVE</strong>
-            </div>
-            <div class="status-track"><span></span></div>
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer>
-    <a class="brand footer-brand" href="#top">
-      <span class="brand-icon">
-        <svg viewBox="0 0 54 54">
-          <path d="M27 5.5 44 15v19L27 43.5 10 34V15L27 5.5Z" class="logo-frame"/>
-          <path d="M15.5 26.8c3.2-5.7 7.1-8.6 11.5-8.6s8.3 2.9 11.5 8.6c-3.2 5.7-7.1 8.6-11.5 8.6s-8.3-2.9-11.5-8.6Z" class="logo-eye"/>
-          <circle cx="27" cy="26.8" r="5.3" class="logo-core"/>
-        </svg>
-      </span>
-      <span class="brand-copy">
-        <strong>OVERSEER</strong>
-        <small>OBSERVE · PREVENT · INTERVENE</small>
-      </span>
+<header class="nav-shell">
+  <div class="wrap nav">
+    <a href="#top" class="brand" aria-label="Overseer home">
+      <svg class="logo" viewBox="0 0 54 54" aria-hidden="true">
+        <path d="M27 5.5 44 15v19L27 43.5 10 34V15L27 5.5Z" fill="none" stroke="#5edcff" stroke-width="1.6"/>
+        <path d="M15.5 26.8c3.2-5.7 7.1-8.6 11.5-8.6s8.3 2.9 11.5 8.6c-3.2 5.7-7.1 8.6-11.5 8.6s-8.3-2.9-11.5-8.6Z" fill="none" stroke="#5edcff" stroke-width="1.6"/>
+        <circle cx="27" cy="26.8" r="5.1" fill="#5edcff"/>
+        <path d="M27 10v7M27 36.5V42" stroke="#5edcff" stroke-width="1.6"/>
+      </svg>
+      <span class="brand-copy"><b>OVERSEER</b><small>OBSERVE · PREVENT · INTERVENE</small></span>
     </a>
+    <div class="nav-links">
+      <a href="#capabilities">Capabilities</a>
+      <a href="#workflow">Workflow</a>
+      <a href="#integrations">Integrations</a>
+    </div>
+    <a class="status" href="#status"><span class="dot"></span>PRIVATE DEVELOPMENT</a>
+  </div>
+</header>
 
+<main id="top">
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div class="hero-copy" data-reveal>
+      <div class="kicker">AUTONOMOUS SOFTWARE ENGINEERING</div>
+      <h1>Give agents work.<span>Keep control.</span></h1>
+      <p>Overseer orchestrates AI-powered software engineering workflows from task to pull request — with automated checks, reviews, recovery paths and human intervention built in.</p>
+      <div class="actions">
+        <a class="btn primary" href="#workflow">See how it works</a>
+        <a class="btn secondary" href="#capabilities">Explore capabilities</a>
+      </div>
+      <div class="proof">
+        <div><b>Multi-agent</b><span>Code · Review · Quality</span></div>
+        <div><b>Controlled</b><span>Gates · Recovery · Intervention</span></div>
+        <div><b>Integrated</b><span>GitHub · GitLab · LLM providers</span></div>
+      </div>
+    </div>
+
+    <div class="console-wrap" data-reveal>
+      <div class="console">
+        <div class="console-bar">
+          <div class="console-dots"><i></i><i></i><i></i></div>
+          <span>RUN / TASK-142</span>
+          <span class="console-live"><span class="dot"></span>ACTIVE</span>
+        </div>
+        <div class="console-body">
+          <div class="objective">
+            <div><span class="micro">OBJECTIVE</span><b>Implement feature and prepare pull request</b></div>
+            <span class="id">OVR-142</span>
+          </div>
+
+          <div class="runflow">
+            <div class="run-node done" data-run-step="0"><div class="run-num">01</div><div><small>Prepare</small><b>Repository</b></div><em></em></div>
+            <div class="link"></div>
+            <div class="run-node active" data-run-step="1"><div class="run-num">02</div><div><small>Agent</small><b>Implement</b></div><em></em></div>
+            <div class="link"></div>
+            <div class="run-node" data-run-step="2"><div class="run-num">03</div><div><small>Quality</small><b>Test Suite</b></div><em></em></div>
+            <div class="link"></div>
+            <div class="run-node" data-run-step="3"><div class="run-num">04</div><div><small>Review</small><b>Code Review</b></div><em></em></div>
+            <div class="link"></div>
+            <div class="run-node" data-run-step="4"><div class="run-num">05</div><div><small>SCM</small><b>Open Pull Request</b></div><em></em></div>
+          </div>
+
+          <div class="metrics">
+            <div><span class="micro">AGENT</span><b>OpenAI</b></div>
+            <div><span class="micro">BRANCH</span><b>agent/task-142</b></div>
+            <div><span class="micro">GUARDRAILS</span><b class="ok">ENFORCED</b></div>
+          </div>
+
+          <div class="logs">
+            <div class="log-head"><span>LIVE ACTIVITY</span><span style="color:var(--green)">● LIVE</span></div>
+            <div class="log" data-live-log="0"><time>09:41:02</time><b>agent</b><span>Analyzing project structure</span></div>
+            <div class="log" data-live-log="1"><time>09:41:05</time><b>agent</b><span>Implementing requested change</span></div>
+            <div class="log" data-live-log="2" style="opacity:.45"><time>next</time><b>quality</b><span>Automated checks queued</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="float a"><small>CONTROL LAYER</small><b>Human intervention ready</b></div>
+      <div class="float b"><small>QUALITY GATES</small><b>3 checks configured</b></div>
+    </div>
+  </div>
+</section>
+
+<div class="band">
+  <div class="wrap">
+    <span>AI AGENTS</span><i></i><span>WORKFLOW ORCHESTRATION</span><i></i><span>QUALITY GATES</span><i></i><span>AUTOMATED REVIEWS</span><i></i><span>GIT AUTOMATION</span><i></i><span>RECOVERY FLOWS</span><i></i><span>HUMAN CONTROL</span>
+  </div>
+</div>
+
+<section id="capabilities" class="section">
+  <div class="wrap">
+    <div class="lead" data-reveal>
+      <div class="kicker">CAPABILITIES</div>
+      <h2>Autonomy without<span>blind trust.</span></h2>
+      <p>Overseer treats autonomous coding as an engineering workflow — not a single prompt. Each run can be observed, verified, redirected and stopped.</p>
+    </div>
+
+    <div class="feature-grid" data-reveal>
+      <article class="card wide">
+        <span class="num">01</span>
+        <div class="icon"><svg viewBox="0 0 48 48"><rect x="6" y="8" width="13" height="11"/><rect x="29" y="8" width="13" height="11"/><rect x="18" y="29" width="13" height="11"/><path d="M19 13.5h10M35.5 19v5.5H24.5V29M12.5 19v5.5h12V29"/></svg></div>
+        <h3>Visual workflow orchestration</h3>
+        <p>Compose coding, testing, reviews, branching, parallel work and recovery into explicit, repeatable software-engineering workflows.</p>
+        <div class="chips"><span>CODE</span><span>TEST</span><span>REVIEW</span><span>RECOVER</span><span>PR / MR</span></div>
+      </article>
+
+      <article class="card">
+        <span class="num">02</span>
+        <div class="icon"><svg viewBox="0 0 48 48"><path d="M24 5 39 12v10c0 10-6.1 17-15 21-8.9-4-15-11-15-21V12l15-7Z"/><path d="m17 24 5 5 10-11"/></svg></div>
+        <h3>Quality gates</h3>
+        <p>Builds, tests and custom checks decide whether a run may continue.</p>
+        <div class="chips"><span>BUILD</span><span>TEST</span><span>CUSTOM</span></div>
+      </article>
+
+      <article class="card">
+        <span class="num">03</span>
+        <div class="icon"><svg viewBox="0 0 48 48"><path d="M7 24c4.7-7.4 10.3-11 17-11s12.3 3.6 17 11c-4.7 7.4-10.3 11-17 11S11.7 31.4 7 24Z"/><circle cx="24" cy="24" r="5"/></svg></div>
+        <h3>AI code review</h3>
+        <p>Dedicated review agents can inspect changes and block progress until concerns are resolved.</p>
+        <div class="chips"><span style="color:var(--green)">NO CONCERNS</span></div>
+      </article>
+
+      <article class="card">
+        <span class="num">04</span>
+        <div class="icon"><svg viewBox="0 0 48 48"><path d="M10 35V15l8-5 8 5v20l-8 5-8-5ZM26 20l8-5 5 3v15l-5 3-8-5"/><path d="M18 10v30M34 15v21"/></svg></div>
+        <h3>Isolated execution</h3>
+        <p>Build, test and agent workloads run in controlled Docker-based execution environments.</p>
+        <div class="chips"><span>DOCKER</span><span>RUNNERS</span></div>
+      </article>
+
+      <article class="card">
+        <span class="num">05</span>
+        <div class="icon"><svg viewBox="0 0 48 48"><circle cx="12" cy="12" r="4"/><circle cx="36" cy="12" r="4"/><circle cx="24" cy="36" r="4"/><path d="M15.5 14 22 32M32.5 14 26 32M16 12h16"/></svg></div>
+        <h3>Multi-agent execution</h3>
+        <p>Use different providers and models for coding, review and verification roles.</p>
+        <div class="chips"><span>CODE</span><span>REVIEW</span><span>QUALITY</span></div>
+      </article>
+
+      <article class="card wide">
+        <span class="num">06</span>
+        <div class="icon"><svg viewBox="0 0 48 48"><circle cx="12" cy="13" r="4"/><circle cx="12" cy="35" r="4"/><circle cx="36" cy="24" r="4"/><path d="M12 17v14M16 13h7c8 0 13 4 13 11M16 35h7c8 0 13-4 13-11"/></svg></div>
+        <h3>Git workflow automation</h3>
+        <p>Work on dedicated branches and automate the path from code changes to pull or merge requests across supported SCM platforms.</p>
+        <div class="chips"><span>BRANCH</span><span>COMMIT</span><span>GITHUB</span><span>GITLAB</span><span>PR / MR</span></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="workflow" class="section workflow">
+  <div class="wrap">
+    <div class="lead center" data-reveal>
+      <div class="kicker">WORKFLOW ENGINE</div>
+      <h2>From request to<span>verified change.</span></h2>
+      <p>A run is a graph of explicit decisions. Success, failure and recovery are visible parts of the workflow — not hidden inside an agent conversation.</p>
+    </div>
+
+    <div class="flowbox" data-reveal>
+      <svg class="flow-svg" viewBox="0 0 1200 520" role="img" aria-label="Overseer workflow from task through implementation, quality and review to pull request, with a failure recovery path returning to implementation">
+        <defs>
+          <marker id="arrowCyan" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" class="arrow"/></marker>
+          <marker id="arrowAmber" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" class="arrow warn"/></marker>
+        </defs>
+
+        <path class="path js-success" marker-end="url(#arrowCyan)" d="M210 175 H300"/>
+        <path class="path pulse" d="M210 175 H300"/>
+        <path class="path js-success" marker-end="url(#arrowCyan)" d="M460 175 H550"/>
+        <path class="path pulse" d="M460 175 H550"/>
+        <path class="path js-success" marker-end="url(#arrowCyan)" d="M710 175 H800"/>
+        <path class="path pulse" d="M710 175 H800"/>
+        <path class="path js-success" marker-end="url(#arrowCyan)" d="M960 175 H1030"/>
+        <path class="path pulse" d="M960 175 H1030"/>
+
+        <path class="path failure js-failure" marker-end="url(#arrowAmber)" d="M630 224 V330 H680 V365"/>
+        <path class="path pulse-fail" d="M630 224 V330 H680 V365"/>
+        <text x="649" y="308" class="label">FAILURE</text>
+
+        <path class="path failure js-failure" marker-end="url(#arrowAmber)" d="M600 412 H380 V225"/>
+        <path class="path pulse-fail" d="M600 412 H380 V225"/>
+        <text x="445" y="400" class="label">RETRY</text>
+
+        <g transform="translate(50,126)" data-step="task">
+          <rect class="box" width="160" height="98"/>
+          <text x="16" y="25" class="ey">INPUT</text>
+          <text x="16" y="54" class="title">Task</text>
+          <text x="16" y="76" class="desc">Change request</text>
+        </g>
+        <g transform="translate(300,126)" data-step="implement">
+          <rect class="box" width="160" height="98"/>
+          <text x="16" y="25" class="ey">AGENT</text>
+          <text x="16" y="54" class="title">Implement</text>
+          <text x="16" y="76" class="desc">Write code</text>
+        </g>
+        <g transform="translate(550,126)" data-step="quality">
+          <rect class="box" width="160" height="98"/>
+          <text x="16" y="25" class="ey">GATE</text>
+          <text x="16" y="54" class="title">Quality</text>
+          <text x="16" y="76" class="desc">Build &amp; tests</text>
+        </g>
+        <g transform="translate(800,126)" data-step="review">
+          <rect class="box" width="160" height="98"/>
+          <text x="16" y="25" class="ey">REVIEW</text>
+          <text x="16" y="54" class="title">Inspect</text>
+          <text x="16" y="76" class="desc">AI code review</text>
+        </g>
+        <g transform="translate(1030,126)" data-step="pr">
+          <rect class="box" width="140" height="98"/>
+          <text x="16" y="25" class="ey">SCM</text>
+          <text x="16" y="54" class="title">Pull Request</text>
+          <text x="16" y="76" class="desc">Human review</text>
+        </g>
+        <g transform="translate(600,365)" data-step="recovery">
+          <rect class="box recovery" width="160" height="94"/>
+          <text x="16" y="24" class="ey warn">RECOVERY</text>
+          <text x="16" y="53" class="title">Fix &amp; Retry</text>
+          <text x="16" y="74" class="desc">Route failure deliberately</text>
+        </g>
+
+        <text x="50" y="48" fill="#4b687c" font-size="9" font-weight="700" letter-spacing="1.5">SUCCESS PATH</text>
+        <text x="50" y="490" fill="#4b687c" font-size="9" font-weight="700" letter-spacing="1.5">EXPLICIT FAILURE / RECOVERY PATH</text>
+      </svg>
+    </div>
+
+    <div class="triad" data-reveal>
+      <div><b>OBSERVE</b><p>Live run state, node status and execution feedback.</p></div>
+      <div><b>PREVENT</b><p>Stop unsafe or low-quality output with explicit gates.</p></div>
+      <div><b>INTERVENE</b><p>Cancel, retry or redirect a run when human judgement is needed.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap control" data-reveal>
+    <div class="control-copy">
+      <div class="kicker">CONTROL LAYER</div>
+      <h2>The agent is not<span>the authority.</span></h2>
+      <p>Overseer separates autonomous execution from release authority. Agents can act, but workflows define what is allowed to happen next.</p>
+      <ul class="control-list">
+        <li><b>01</b>Explicit success and failure paths</li>
+        <li><b>02</b>Configurable review and quality policies</li>
+        <li><b>03</b>Retry, recovery and cancellation controls</li>
+        <li><b>04</b>Human-visible execution state</li>
+      </ul>
+    </div>
+    <div class="radar-wrap">
+      <div class="radar" id="controlRadar"><div class="cross-x"></div><div class="cross-y"></div><div class="beam"></div><div class="core"></div></div>
+      <div class="badge one" data-control-badge><small>RUN</small><b>OBSERVED</b></div>
+      <div class="badge two" data-control-badge><small>POLICY</small><b>ENFORCED</b></div>
+      <div class="badge three" data-control-badge><small>HUMAN</small><b>IN CONTROL</b></div>
+    </div>
+  </div>
+</section>
+
+<section id="integrations" class="section integrations">
+  <div class="wrap">
+    <div class="lead" data-reveal>
+      <div class="kicker">INTEGRATIONS</div>
+      <h2>Bring the tools.<span>Overseer runs the loop.</span></h2>
+    </div>
+    <div class="integr-grid" data-reveal>
+      <div class="integr">
+        <span>AI PROVIDERS</span>
+        <div class="integr-row"><b>OpenAI</b><small>Agent provider</small></div>
+        <div class="integr-row"><b>Anthropic Claude</b><small>Agent provider</small></div>
+        <div class="integr-row"><b>Google Gemini</b><small>Agent provider</small></div>
+        <div class="integr-row"><b>Ollama</b><small>Local models</small></div>
+      </div>
+      <div class="integr">
+        <span>SOURCE CONTROL</span>
+        <div class="integr-row"><b>GitHub</b><small>Repositories · Pull Requests</small></div>
+        <div class="integr-row"><b>GitLab</b><small>Repositories · Merge Requests</small></div>
+        <div class="integr-row"><b>Git</b><small>Branch &amp; commit automation</small></div>
+      </div>
+      <div class="integr">
+        <span>EXECUTION &amp; CONTROL</span>
+        <div class="integr-row"><b>Docker</b><small>Isolated workloads</small></div>
+        <div class="integr-row"><b>Quality Gates</b><small>Build · Test · Custom checks</small></div>
+        <div class="integr-row"><b>Review Gates</b><small>AI-assisted inspection</small></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="status" class="section cta">
+  <div class="wrap cta-box" data-reveal>
+    <div>
+      <div class="kicker">PRIVATE DEVELOPMENT</div>
+      <h2>Overseer is<span>coming soon.</span></h2>
+    </div>
+    <div class="cta-right">
+      <p>The platform is under active development. Public source code is not available.</p>
+      <div class="progress-head"><span>DEVELOPMENT STATUS</span><b>ACTIVE</b></div>
+      <div class="progress"><span></span></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap footer">
+    <a href="#top" class="brand">
+      <svg class="logo" viewBox="0 0 54 54" aria-hidden="true">
+        <path d="M27 5.5 44 15v19L27 43.5 10 34V15L27 5.5Z" fill="none" stroke="#5edcff" stroke-width="1.6"/>
+        <path d="M15.5 26.8c3.2-5.7 7.1-8.6 11.5-8.6s8.3 2.9 11.5 8.6c-3.2 5.7-7.1 8.6-11.5 8.6s-8.3-2.9-11.5-8.6Z" fill="none" stroke="#5edcff" stroke-width="1.6"/>
+        <circle cx="27" cy="26.8" r="5.1" fill="#5edcff"/>
+      </svg>
+      <span class="brand-copy"><b>OVERSEER</b><small>OBSERVE · PREVENT · INTERVENE</small></span>
+    </a>
     <div class="footer-meta">
-      <span>© <span id="year"></span> Overseer</span>
+      <span>© 2026 Overseer</span>
       <span>Autonomous Software Engineering</span>
       <span>Private project · Source code not public</span>
     </div>
-  </footer>
+  </div>
+</footer>
 
-  <script src="script.js"></script>
+<script>
+(() => {
+  "use strict";
+
+  const reduceMotion = window.matchMedia &&
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* Progressive scroll reveals: content is already visible before JS runs. */
+  const revealItems = [...document.querySelectorAll("[data-reveal]")];
+  if (!reduceMotion && "IntersectionObserver" in window && revealItems.length) {
+    document.documentElement.classList.add("anim-prep");
+    const io = new IntersectionObserver((entries, observer) => {
+      for (const entry of entries) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          observer.unobserve(entry.target);
+        }
+      }
+    }, { threshold: 0.10, rootMargin: "0px 0px -5% 0px" });
+
+    revealItems.forEach((el, i) => {
+      el.style.transitionDelay = `${Math.min(i * 35, 180)}ms`;
+      io.observe(el);
+    });
+
+    /* Never leave content dimmed if observer timing behaves oddly. */
+    window.setTimeout(() => {
+      revealItems.forEach(el => el.classList.add("is-visible"));
+    }, 2600);
+  }
+
+  /* Hero run simulation. */
+  const runNodes = [...document.querySelectorAll("[data-run-step]")];
+  const liveLogs = [...document.querySelectorAll("[data-live-log]")];
+  const logStates = [
+    [
+      ["09:41:02","agent","Analyzing project structure"],
+      ["09:41:05","agent","Implementing requested change"],
+      ["next","quality","Automated checks queued"]
+    ],
+    [
+      ["09:41:12","agent","Change implemented"],
+      ["09:41:13","quality","Starting build and tests"],
+      ["next","review","Code review queued"]
+    ],
+    [
+      ["09:41:29","quality","All checks passed"],
+      ["09:41:30","review","Inspecting changed files"],
+      ["next","review","Evaluating concerns"]
+    ],
+    [
+      ["09:41:41","review","No blocking concerns found"],
+      ["09:41:42","scm","Preparing pull request"],
+      ["next","scm","Publishing branch"]
+    ],
+    [
+      ["09:41:49","scm","Pull request created"],
+      ["09:41:50","overseer","Run completed successfully"],
+      ["ready","human","Ready for human review"]
+    ]
+  ];
+
+  function setRunState(activeIndex) {
+    runNodes.forEach((node, idx) => {
+      node.classList.remove("done","active","js-done","js-active","js-idle");
+      if (idx < activeIndex) node.classList.add("js-done");
+      else if (idx === activeIndex) node.classList.add("js-active");
+      else node.classList.add("js-idle");
+    });
+
+    const state = logStates[activeIndex] || logStates[0];
+    liveLogs.forEach((row, idx) => {
+      const data = state[idx];
+      if (!data) return;
+      const time = row.querySelector("time");
+      const source = row.querySelector("b");
+      const text = row.querySelector("span");
+      if (time) time.textContent = data[0];
+      if (source) source.textContent = data[1];
+      if (text) text.textContent = data[2];
+      row.style.opacity = idx === 2 ? ".48" : "1";
+      row.classList.remove("flash");
+      void row.offsetWidth;
+      row.classList.add("flash");
+    });
+  }
+
+  let heroStep = 1;
+  if (runNodes.length) {
+    setRunState(heroStep);
+    if (!reduceMotion) {
+      window.setInterval(() => {
+        heroStep = (heroStep + 1) % runNodes.length;
+        setRunState(heroStep);
+      }, 2500);
+    }
+  }
+
+  /* Workflow diagram simulation: success path, then a recovery demonstration. */
+  const wfNodes = {};
+  document.querySelectorAll(".flow-svg g[data-step]").forEach(el => {
+    wfNodes[el.dataset.step] = el;
+  });
+  const successPaths = [...document.querySelectorAll(".flow-svg .js-success")];
+  const failurePaths = [...document.querySelectorAll(".flow-svg .js-failure")];
+  const successSequence = ["task","implement","quality","review","pr"];
+
+  function clearWorkflow() {
+    Object.values(wfNodes).forEach(el =>
+      el.classList.remove("wf-active","wf-done","wf-recovery"));
+    successPaths.forEach(el => el.classList.remove("path-on"));
+    failurePaths.forEach(el => el.classList.remove("path-on"));
+  }
+
+  function showSuccessStep(index) {
+    clearWorkflow();
+    successSequence.forEach((name, idx) => {
+      const el = wfNodes[name];
+      if (!el) return;
+      if (idx < index) el.classList.add("wf-done");
+      if (idx === index) el.classList.add("wf-active");
+    });
+    successPaths.forEach((path, idx) => {
+      if (idx < index) path.classList.add("path-on");
+    });
+  }
+
+  function showRecoveryPhase(phase) {
+    clearWorkflow();
+    ["task","implement"].forEach(name => wfNodes[name]?.classList.add("wf-done"));
+    wfNodes.quality?.classList.add("wf-active");
+    successPaths[0]?.classList.add("path-on");
+    successPaths[1]?.classList.add("path-on");
+
+    if (phase >= 1) {
+      wfNodes.quality?.classList.remove("wf-active");
+      wfNodes.quality?.classList.add("wf-done");
+      wfNodes.recovery?.classList.add("wf-recovery");
+      failurePaths[0]?.classList.add("path-on");
+    }
+    if (phase >= 2) {
+      failurePaths.forEach(p => p.classList.add("path-on"));
+      wfNodes.implement?.classList.remove("wf-done");
+      wfNodes.implement?.classList.add("wf-active");
+    }
+  }
+
+  if (wfNodes.task) {
+    let frame = 0;
+    const frames = [
+      () => showSuccessStep(0),
+      () => showSuccessStep(1),
+      () => showSuccessStep(2),
+      () => showRecoveryPhase(1),
+      () => showRecoveryPhase(2),
+      () => showSuccessStep(2),
+      () => showSuccessStep(3),
+      () => showSuccessStep(4),
+    ];
+    frames[0]();
+    if (!reduceMotion) {
+      window.setInterval(() => {
+        frame = (frame + 1) % frames.length;
+        frames[frame]();
+      }, 1700);
+    }
+  }
+
+  /* Control/radar status pings. */
+  const badges = [...document.querySelectorAll("[data-control-badge]")];
+  const radar = document.getElementById("controlRadar");
+  let badgeIndex = 0;
+  if (badges.length && !reduceMotion) {
+    window.setInterval(() => {
+      badges.forEach(b => b.classList.remove("js-ping"));
+      badges[badgeIndex].classList.add("js-ping");
+      radar?.classList.toggle("js-scan", badgeIndex === 0);
+      badgeIndex = (badgeIndex + 1) % badges.length;
+    }, 1800);
+  }
+
+  /* Tiny pointer-parallax on the hero console; desktop only. */
+  const consoleWrap = document.querySelector(".console-wrap");
+  const consoleEl = document.querySelector(".console");
+  if (consoleWrap && consoleEl && !reduceMotion && window.matchMedia("(pointer:fine)").matches) {
+    consoleWrap.addEventListener("pointermove", (event) => {
+      const rect = consoleWrap.getBoundingClientRect();
+      const x = (event.clientX - rect.left) / rect.width - .5;
+      const y = (event.clientY - rect.top) / rect.height - .5;
+      consoleEl.style.transform =
+        `perspective(1000px) rotateX(${(-y * 1.8).toFixed(2)}deg) rotateY(${(x * 2.2).toFixed(2)}deg) translateZ(0)`;
+    });
+    consoleWrap.addEventListener("pointerleave", () => {
+      consoleEl.style.transform = "perspective(1000px) rotateX(0deg) rotateY(0deg)";
+    });
+  }
+})();
+</script>
+
 </body>
 </html>

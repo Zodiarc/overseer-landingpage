@@ -1,64 +1,33 @@
-# Overseer Landing Page v2
+# Overseer Landing Page v3.1
 
-Static GitHub Pages landing page for Overseer.
+Single-file GitHub Pages landing page with progressive JavaScript animations.
 
-## What's included
+## Improvements over v3
 
-- Product-focused hero section
-- Animated mock run / workflow UI
-- Capability overview
-- Workflow-engine visualization
-- Control-layer / human-in-the-loop section
-- Provider, SCM and execution integration overview
-- Responsive mobile layout
-- Scroll reveal animations
-- No build process required
+- Scroll reveal effects
+- Animated hero run with changing node states and live activity
+- Animated workflow visualization with a demonstrated failure/recovery loop
+- Control-layer status pings
+- Subtle desktop pointer parallax on the run console
+- `prefers-reduced-motion` support
+- No external JavaScript, CSS, fonts, CDNs or assets
 
-## Files
+The page remains fully visible and usable if JavaScript is disabled.
 
-```text
-.
-├── index.html
-├── styles.css
-├── script.js
-├── .nojekyll
-└── README.md
-```
+## Deploy
 
-## Local preview
+Replace the contents of the GitHub Pages repository root with:
 
-From this directory:
+- `index.html`
+- `.nojekyll`
+- optionally `README.md`
+
+Then run:
 
 ```bash
-python -m http.server 8080
-```
-
-Then open:
-
-```text
-http://localhost:8080
-```
-
-## Replace the current GitHub Pages site
-
-If your existing landing-page repository is already configured for GitHub Pages:
-
-1. Back up the current files if you want to keep them.
-2. Replace the old `index.html` and `styles.css`.
-3. Add `script.js`.
-4. Keep `.nojekyll` in the repository root.
-5. Commit and push:
-
-```bash
-git add .
-git commit -m "Redesign Overseer landing page"
+git add -A
+git commit -m "Add embedded animations to Overseer landing page"
 git push
 ```
 
-GitHub Pages will redeploy automatically.
-
-## Privacy
-
-The page intentionally describes product capabilities without exposing source code,
-internal implementation details, credentials, private repository information or
-detailed infrastructure architecture.
+If Pages already deploys from `main` and `/(root)`, nothing else needs to be changed.
