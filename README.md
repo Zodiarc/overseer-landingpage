@@ -1,20 +1,9 @@
-# Overseer Landing Page v3.4
+# Overseer Landing Page v3.5
 
-Single-file GitHub Pages landing page.
+The recovery workflow was redrawn:
 
-## v3.4
+- Quality -> FAILED -> Fix & Retry
+- Review -> CONCERNS -> Fix & Retry
+- Fix & Retry -> Implement
 
-- Replaced the provisional eye/hexagon icon with the official Overseer emblem.
-- Uses the same shield / eye / circuit mark as the Overseer product branding.
-- Official mark is embedded directly as inline SVG, so GitHub Pages needs no image asset path.
-- Added a subtle emblem watermark behind the hero run console.
-- Added a compact branded mark above the hero headline.
-- Keeps all v3.3 workflow/recovery fixes and embedded JavaScript animations.
-
-## Deploy
-
-```bash
-git add -A
-git commit -m "Use official Overseer branding"
-git push
-```
+There are no shared junction dots or overlapping arrowheads.
