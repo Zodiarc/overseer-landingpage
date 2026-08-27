@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#07111f" />
+  <meta name="description" content="Overseer — autonomous software engineering. Observe. Prevent. Intervene." />
+  <title>Overseer — Coming Soon</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="site-shell">
+    <div class="ambient ambient-a"></div>
+    <div class="ambient ambient-b"></div>
+    <div class="grid"></div>
+
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="Overseer home">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 48 48" role="img">
+            <path d="M24 5 39 13.5v17L24 39 9 30.5v-17L24 5Z" class="mark-outline"/>
+            <circle cx="24" cy="22" r="6" class="mark-eye"/>
+            <path d="M13 22c3.2-5.1 6.9-7.7 11-7.7S31.8 16.9 35 22c-3.2 5.1-6.9 7.7-11 7.7S16.2 27.1 13 22Z" class="mark-eye-outline"/>
+            <path d="M24 10v4M24 30v8" class="mark-line"/>
+          </svg>
+        </span>
+        <span class="brand-copy">
+          <strong>OVERSEER</strong>
+          <small>OBSERVE · PREVENT · INTERVENE</small>
+        </span>
+      </a>
+
+      <div class="status-pill">
+        <span class="pulse"></span>
+        PRIVATE DEVELOPMENT
+      </div>
+    </header>
+
+    <main class="hero">
+      <div class="hero-copy">
+        <div class="eyebrow">AUTONOMOUS SOFTWARE ENGINEERING</div>
+
+        <h1>
+          Software delivery,
+          <span>under supervision.</span>
+        </h1>
+
+        <p class="intro">
+          Overseer is a platform for orchestrating autonomous software engineering workflows
+          with controlled execution, verification and intervention.
+        </p>
+
+        <div class="launch-panel">
+          <div>
+            <span class="label">STATUS</span>
+            <strong>COMING SOON</strong>
+          </div>
+          <div class="launch-line" aria-hidden="true">
+            <span></span>
+          </div>
+          <div class="launch-meta">BUILD IN PROGRESS</div>
+        </div>
+
+        <div class="principles" aria-label="Overseer principles">
+          <div>
+            <span>01</span>
+            <strong>Observe</strong>
+            <p>Understand what autonomous systems are doing.</p>
+          </div>
+          <div>
+            <span>02</span>
+            <strong>Prevent</strong>
+            <p>Stop bad outcomes before they become releases.</p>
+          </div>
+          <div>
+            <span>03</span>
+            <strong>Intervene</strong>
+            <p>Keep humans in control when it matters.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="visual" aria-hidden="true">
+        <div class="scanner">
+          <div class="scanner-ring ring-1"></div>
+          <div class="scanner-ring ring-2"></div>
+          <div class="scanner-ring ring-3"></div>
+          <div class="scanner-axis axis-x"></div>
+          <div class="scanner-axis axis-y"></div>
+          <div class="scanner-core">
+            <span class="core-dot"></span>
+          </div>
+          <div class="scanner-beam"></div>
+          <span class="node node-a"></span>
+          <span class="node node-b"></span>
+          <span class="node node-c"></span>
+          <span class="node node-d"></span>
+        </div>
+
+        <div class="hud hud-top">
+          <span>SYSTEM</span>
+          <strong>STANDBY</strong>
+        </div>
+
+        <div class="hud hud-bottom">
+          <span>RELEASE</span>
+          <strong>LOCKED</strong>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <span>© <span id="year"></span> Overseer</span>
+      <span>Private project · Source code not public</span>
+    </footer>
+  </div>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
