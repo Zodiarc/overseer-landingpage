@@ -6,6 +6,7 @@
 <meta name="theme-color" content="#050914">
 <meta name="description" content="Overseer orchestrates autonomous software engineering workflows with AI agents, quality gates, reviews, Git automation and human control.">
 <title>Overseer — Autonomous Software Engineering</title>
+<!-- Official Overseer shield / eye / circuit emblem embedded inline -->
 <style>
 :root{
   color-scheme:dark;
@@ -348,6 +349,57 @@ footer{padding:28px 0 34px}.footer{display:flex;justify-content:space-between;al
   }
 }
 
+
+/* Official Overseer identity */
+.logo{
+  width:46px;
+  height:46px;
+  overflow:visible;
+  filter:drop-shadow(0 0 9px rgba(42,207,255,.16));
+}
+.brand:hover .logo{
+  filter:drop-shadow(0 0 13px rgba(42,207,255,.28));
+}
+.hero-emblem{
+  position:absolute;
+  z-index:0;
+  right:-66px;
+  top:-76px;
+  width:280px;
+  height:280px;
+  opacity:.055;
+  pointer-events:none;
+  filter:drop-shadow(0 0 36px rgba(42,207,255,.24));
+  transform:rotate(4deg);
+}
+.console-wrap > *:not(.hero-emblem){
+  position:relative;
+  z-index:2;
+}
+.official-mark-tag{
+  display:inline-flex;
+  align-items:center;
+  gap:9px;
+  margin-bottom:18px;
+  padding:7px 9px 7px 7px;
+  border:1px solid var(--line);
+  background:rgba(7,17,29,.58);
+  color:#7993a7;
+  font-size:8px;
+  font-weight:800;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+}
+.official-mark-tag svg{
+  width:25px;
+  height:25px;
+  flex:0 0 auto;
+}
+@media(max-width:760px){
+  .logo{width:42px;height:42px}
+  .hero-emblem{width:205px;height:205px;right:-40px;top:-45px;opacity:.045}
+}
+
 </style>
 </head>
 <body>
@@ -355,12 +407,36 @@ footer{padding:28px 0 34px}.footer{display:flex;justify-content:space-between;al
 <header class="nav-shell">
   <div class="wrap nav">
     <a href="#top" class="brand" aria-label="Overseer home">
-      <svg class="logo" viewBox="0 0 54 54" aria-hidden="true">
-        <path d="M27 5.5 44 15v19L27 43.5 10 34V15L27 5.5Z" fill="none" stroke="#5edcff" stroke-width="1.6"/>
-        <path d="M15.5 26.8c3.2-5.7 7.1-8.6 11.5-8.6s8.3 2.9 11.5 8.6c-3.2 5.7-7.1 8.6-11.5 8.6s-8.3-2.9-11.5-8.6Z" fill="none" stroke="#5edcff" stroke-width="1.6"/>
-        <circle cx="27" cy="26.8" r="5.1" fill="#5edcff"/>
-        <path d="M27 10v7M27 36.5V42" stroke="#5edcff" stroke-width="1.6"/>
-      </svg>
+      <svg class="logo" viewBox="0 0 120 120" aria-hidden="true">
+  <defs>
+    <linearGradient id="snav" x1="16" y1="10" x2="102" y2="110" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#eef8ff"/>
+      <stop offset=".45" stop-color="#7691a5"/>
+      <stop offset="1" stop-color="#dceaf3"/>
+    </linearGradient>
+    <radialGradient id="cnav">
+      <stop stop-color="#e6fbff"/>
+      <stop offset=".35" stop-color="#22d3ff"/>
+      <stop offset="1" stop-color="#0077b6"/>
+    </radialGradient>
+  </defs>
+  <path d="M60 6 104 29v32c0 25-14 42-44 54C30 103 16 86 16 61V29L60 6Z" fill="#07141d" stroke="url(#snav)" stroke-width="4"/>
+  <path d="M20 60c12-18 25-27 40-27s28 9 40 27c-12 18-25 27-40 27S32 78 20 60Z" fill="none" stroke="url(#snav)" stroke-width="4"/>
+  <circle cx="60" cy="60" r="18" fill="none" stroke="#2acfff" stroke-width="3"/>
+  <circle cx="60" cy="60" r="10" fill="url(#cnav)" stroke="#8cecff" stroke-width="2"/>
+  <circle cx="60" cy="60" r="3.5" fill="#eefcff"/>
+  <g stroke="#20c8f4" stroke-width="2" stroke-linecap="round">
+    <path d="M60 31V14m0 17-8-8m8 8 8-8M37 37 28 28m9 9-12 2M83 37l9-9m-9 9 12 2M36 83l-9 9m9-9-12-2M84 83l9 9m-9-9 12-2M60 89v17m0-17-8 8m8-8 8 8"/>
+  </g>
+  <g fill="#07141d" stroke="#39d5ff" stroke-width="2">
+    <circle cx="60" cy="13" r="3"/>
+    <circle cx="25" cy="39" r="3"/>
+    <circle cx="95" cy="39" r="3"/>
+    <circle cx="24" cy="81" r="3"/>
+    <circle cx="96" cy="81" r="3"/>
+    <circle cx="60" cy="107" r="3"/>
+  </g>
+</svg>
       <span class="brand-copy"><b>OVERSEER</b><small>OBSERVE · PREVENT · INTERVENE</small></span>
     </a>
     <div class="nav-links">
@@ -376,6 +452,36 @@ footer{padding:28px 0 34px}.footer{display:flex;justify-content:space-between;al
 <section class="hero">
   <div class="wrap hero-grid">
     <div class="hero-copy" data-reveal>
+      <div class="official-mark-tag"><svg class="hero-tag-logo" viewBox="0 0 120 120" aria-hidden="true">
+  <defs>
+    <linearGradient id="sheroTag" x1="16" y1="10" x2="102" y2="110" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#eef8ff"/>
+      <stop offset=".45" stop-color="#7691a5"/>
+      <stop offset="1" stop-color="#dceaf3"/>
+    </linearGradient>
+    <radialGradient id="cheroTag">
+      <stop stop-color="#e6fbff"/>
+      <stop offset=".35" stop-color="#22d3ff"/>
+      <stop offset="1" stop-color="#0077b6"/>
+    </radialGradient>
+  </defs>
+  <path d="M60 6 104 29v32c0 25-14 42-44 54C30 103 16 86 16 61V29L60 6Z" fill="#07141d" stroke="url(#sheroTag)" stroke-width="4"/>
+  <path d="M20 60c12-18 25-27 40-27s28 9 40 27c-12 18-25 27-40 27S32 78 20 60Z" fill="none" stroke="url(#sheroTag)" stroke-width="4"/>
+  <circle cx="60" cy="60" r="18" fill="none" stroke="#2acfff" stroke-width="3"/>
+  <circle cx="60" cy="60" r="10" fill="url(#cheroTag)" stroke="#8cecff" stroke-width="2"/>
+  <circle cx="60" cy="60" r="3.5" fill="#eefcff"/>
+  <g stroke="#20c8f4" stroke-width="2" stroke-linecap="round">
+    <path d="M60 31V14m0 17-8-8m8 8 8-8M37 37 28 28m9 9-12 2M83 37l9-9m-9 9 12 2M36 83l-9 9m9-9-12-2M84 83l9 9m-9-9 12-2M60 89v17m0-17-8 8m8-8 8 8"/>
+  </g>
+  <g fill="#07141d" stroke="#39d5ff" stroke-width="2">
+    <circle cx="60" cy="13" r="3"/>
+    <circle cx="25" cy="39" r="3"/>
+    <circle cx="95" cy="39" r="3"/>
+    <circle cx="24" cy="81" r="3"/>
+    <circle cx="96" cy="81" r="3"/>
+    <circle cx="60" cy="107" r="3"/>
+  </g>
+</svg><span>Overseer Control Platform</span></div>
       <div class="kicker">AUTONOMOUS SOFTWARE ENGINEERING</div>
       <h1>Give agents work.<span>Keep control.</span></h1>
       <p>Overseer orchestrates AI-powered software engineering workflows from task to pull request — with automated checks, reviews, recovery paths and human intervention built in.</p>
@@ -391,6 +497,36 @@ footer{padding:28px 0 34px}.footer{display:flex;justify-content:space-between;al
     </div>
 
     <div class="console-wrap" data-reveal>
+      <svg class="hero-emblem" viewBox="0 0 120 120" aria-hidden="true">
+  <defs>
+    <linearGradient id="sheroWatermark" x1="16" y1="10" x2="102" y2="110" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#eef8ff"/>
+      <stop offset=".45" stop-color="#7691a5"/>
+      <stop offset="1" stop-color="#dceaf3"/>
+    </linearGradient>
+    <radialGradient id="cheroWatermark">
+      <stop stop-color="#e6fbff"/>
+      <stop offset=".35" stop-color="#22d3ff"/>
+      <stop offset="1" stop-color="#0077b6"/>
+    </radialGradient>
+  </defs>
+  <path d="M60 6 104 29v32c0 25-14 42-44 54C30 103 16 86 16 61V29L60 6Z" fill="#07141d" stroke="url(#sheroWatermark)" stroke-width="4"/>
+  <path d="M20 60c12-18 25-27 40-27s28 9 40 27c-12 18-25 27-40 27S32 78 20 60Z" fill="none" stroke="url(#sheroWatermark)" stroke-width="4"/>
+  <circle cx="60" cy="60" r="18" fill="none" stroke="#2acfff" stroke-width="3"/>
+  <circle cx="60" cy="60" r="10" fill="url(#cheroWatermark)" stroke="#8cecff" stroke-width="2"/>
+  <circle cx="60" cy="60" r="3.5" fill="#eefcff"/>
+  <g stroke="#20c8f4" stroke-width="2" stroke-linecap="round">
+    <path d="M60 31V14m0 17-8-8m8 8 8-8M37 37 28 28m9 9-12 2M83 37l9-9m-9 9 12 2M36 83l-9 9m9-9-12-2M84 83l9 9m-9-9 12-2M60 89v17m0-17-8 8m8-8 8 8"/>
+  </g>
+  <g fill="#07141d" stroke="#39d5ff" stroke-width="2">
+    <circle cx="60" cy="13" r="3"/>
+    <circle cx="25" cy="39" r="3"/>
+    <circle cx="95" cy="39" r="3"/>
+    <circle cx="24" cy="81" r="3"/>
+    <circle cx="96" cy="81" r="3"/>
+    <circle cx="60" cy="107" r="3"/>
+  </g>
+</svg>
       <div class="console">
         <div class="console-bar">
           <div class="console-dots"><i></i><i></i><i></i></div>
@@ -506,7 +642,7 @@ footer{padding:28px 0 34px}.footer{display:flex;justify-content:space-between;al
     <div class="lead center" data-reveal>
       <div class="kicker">WORKFLOW ENGINE</div>
       <h2>From request to<span>verified change.</span></h2>
-      <p>A run is a graph of explicit decisions. Success, failure and recovery are visible parts of the workflow — not hidden inside an agent conversation.</p>
+      <p>A run is a graph of explicit decisions. Quality failures and review concerns can be routed into recovery before execution returns to the implementation agent.</p>
     </div>
 
     <div class="flowbox" data-reveal>
@@ -525,19 +661,30 @@ footer{padding:28px 0 34px}.footer{display:flex;justify-content:space-between;al
         <path class="path js-success" marker-end="url(#arrowCyan)" d="M960 175 H1030"/>
         <path class="path pulse" d="M960 175 H1030"/>
 
-        <!-- Permanent recovery path: Quality -> Fix & Retry -->
-        <path class="path failure js-failure" marker-end="url(#arrowAmber)" d="M630 224 V320 Q630 335 645 335 H680 V365"/>
-        <path class="path pulse-fail" d="M630 224 V320 Q630 335 645 335 H680 V365"/>
-        <text x="648" y="318" class="label">FAILURE</text>
+        <!-- Permanent recovery path: Quality failure -> shared recovery -->
+        <path class="path failure js-failure quality-failure" d="M630 224 V308 Q630 323 645 323 H680 V350"/>
+        <path class="path pulse-fail quality-failure" d="M630 224 V308 Q630 323 645 323 H680 V350"/>
+        <text x="642" y="303" class="label">FAILED</text>
+
+        <!-- Permanent recovery path: Review concerns -> shared recovery -->
+        <path class="path failure js-failure review-failure" d="M880 224 V286 Q880 301 865 301 H745 Q730 301 730 316 V350"/>
+        <path class="path pulse-fail review-failure" d="M880 224 V286 Q880 301 865 301 H745 Q730 301 730 316 V350"/>
+        <text x="793" y="289" class="label">CONCERNS</text>
+
+        <!-- Shared entry into Fix & Retry -->
+        <path class="path failure js-failure shared-recovery" marker-end="url(#arrowAmber)" d="M705 350 V365"/>
+        <path class="path pulse-fail shared-recovery" d="M705 350 V365"/>
 
         <!-- Permanent retry path: Fix & Retry -> Implement -->
-        <path class="path failure js-failure" marker-end="url(#arrowAmber)" d="M600 412 H405 Q380 412 380 387 V224"/>
-        <path class="path pulse-fail" d="M600 412 H405 Q380 412 380 387 V224"/>
-        <text x="458" y="398" class="label">RETRY TO IMPLEMENT</text>
+        <path class="path failure js-failure retry-path" marker-end="url(#arrowAmber)" d="M600 412 H405 Q380 412 380 387 V224"/>
+        <path class="path pulse-fail retry-path" d="M600 412 H405 Q380 412 380 387 V224"/>
+        <text x="455" y="398" class="label">RETRY TO IMPLEMENT</text>
 
         <!-- Explicit connection points -->
         <circle cx="630" cy="224" r="4" fill="#ffc86b"/>
-        <circle cx="680" cy="365" r="4" fill="#ffc86b"/>
+        <circle cx="880" cy="224" r="4" fill="#ffc86b"/>
+        <circle cx="705" cy="350" r="4" fill="#ffc86b"/>
+        <circle cx="705" cy="365" r="4" fill="#ffc86b"/>
         <circle cx="600" cy="412" r="4" fill="#ffc86b"/>
         <circle cx="380" cy="224" r="4" fill="#ffc86b"/>
 
@@ -575,7 +722,7 @@ footer{padding:28px 0 34px}.footer{display:flex;justify-content:space-between;al
           <rect class="box recovery" width="160" height="94"/>
           <text x="16" y="24" class="ey warn">RECOVERY</text>
           <text x="16" y="53" class="title">Fix &amp; Retry</text>
-          <text x="16" y="74" class="desc">Fix issue, then return to agent</text>
+          <text x="16" y="74" class="desc">Resolve failure or concerns, then retry</text>
         </g>
 
         <text x="50" y="48" fill="#4b687c" font-size="9" font-weight="700" letter-spacing="1.5">SUCCESS PATH</text>
@@ -585,7 +732,7 @@ footer{padding:28px 0 34px}.footer{display:flex;justify-content:space-between;al
 
     <div class="triad" data-reveal>
       <div><b>OBSERVE</b><p>Live run state, node status and execution feedback.</p></div>
-      <div><b>PREVENT</b><p>Stop unsafe or low-quality output with explicit gates.</p></div>
+      <div><b>PREVENT</b><p>Block technical failures and review concerns before a pull request is opened.</p></div>
       <div><b>INTERVENE</b><p>Cancel, retry or redirect a run when human judgement is needed.</p></div>
     </div>
   </div>
@@ -661,11 +808,36 @@ footer{padding:28px 0 34px}.footer{display:flex;justify-content:space-between;al
 <footer>
   <div class="wrap footer">
     <a href="#top" class="brand">
-      <svg class="logo" viewBox="0 0 54 54" aria-hidden="true">
-        <path d="M27 5.5 44 15v19L27 43.5 10 34V15L27 5.5Z" fill="none" stroke="#5edcff" stroke-width="1.6"/>
-        <path d="M15.5 26.8c3.2-5.7 7.1-8.6 11.5-8.6s8.3 2.9 11.5 8.6c-3.2 5.7-7.1 8.6-11.5 8.6s-8.3-2.9-11.5-8.6Z" fill="none" stroke="#5edcff" stroke-width="1.6"/>
-        <circle cx="27" cy="26.8" r="5.1" fill="#5edcff"/>
-      </svg>
+      <svg class="logo" viewBox="0 0 120 120" aria-hidden="true">
+  <defs>
+    <linearGradient id="sfooter" x1="16" y1="10" x2="102" y2="110" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#eef8ff"/>
+      <stop offset=".45" stop-color="#7691a5"/>
+      <stop offset="1" stop-color="#dceaf3"/>
+    </linearGradient>
+    <radialGradient id="cfooter">
+      <stop stop-color="#e6fbff"/>
+      <stop offset=".35" stop-color="#22d3ff"/>
+      <stop offset="1" stop-color="#0077b6"/>
+    </radialGradient>
+  </defs>
+  <path d="M60 6 104 29v32c0 25-14 42-44 54C30 103 16 86 16 61V29L60 6Z" fill="#07141d" stroke="url(#sfooter)" stroke-width="4"/>
+  <path d="M20 60c12-18 25-27 40-27s28 9 40 27c-12 18-25 27-40 27S32 78 20 60Z" fill="none" stroke="url(#sfooter)" stroke-width="4"/>
+  <circle cx="60" cy="60" r="18" fill="none" stroke="#2acfff" stroke-width="3"/>
+  <circle cx="60" cy="60" r="10" fill="url(#cfooter)" stroke="#8cecff" stroke-width="2"/>
+  <circle cx="60" cy="60" r="3.5" fill="#eefcff"/>
+  <g stroke="#20c8f4" stroke-width="2" stroke-linecap="round">
+    <path d="M60 31V14m0 17-8-8m8 8 8-8M37 37 28 28m9 9-12 2M83 37l9-9m-9 9 12 2M36 83l-9 9m9-9-12-2M84 83l9 9m-9-9 12-2M60 89v17m0-17-8 8m8-8 8 8"/>
+  </g>
+  <g fill="#07141d" stroke="#39d5ff" stroke-width="2">
+    <circle cx="60" cy="13" r="3"/>
+    <circle cx="25" cy="39" r="3"/>
+    <circle cx="95" cy="39" r="3"/>
+    <circle cx="24" cy="81" r="3"/>
+    <circle cx="96" cy="81" r="3"/>
+    <circle cx="60" cy="107" r="3"/>
+  </g>
+</svg>
       <span class="brand-copy"><b>OVERSEER</b><small>OBSERVE · PREVENT · INTERVENE</small></span>
     </a>
     <div class="footer-meta">
@@ -781,6 +953,9 @@ footer{padding:28px 0 34px}.footer{display:flex;justify-content:space-between;al
   });
   const successPaths = [...document.querySelectorAll(".flow-svg .js-success")];
   const failurePaths = [...document.querySelectorAll(".flow-svg .js-failure")];
+  const qualityFailurePaths = [...document.querySelectorAll(".flow-svg .quality-failure, .flow-svg .shared-recovery")];
+  const reviewFailurePaths = [...document.querySelectorAll(".flow-svg .review-failure, .flow-svg .shared-recovery")];
+  const retryPaths = [...document.querySelectorAll(".flow-svg .retry-path")];
   const successSequence = ["task","implement","quality","review","pr"];
 
   function clearWorkflow() {
@@ -803,21 +978,35 @@ footer{padding:28px 0 34px}.footer{display:flex;justify-content:space-between;al
     });
   }
 
-  function showRecoveryPhase(phase) {
+  function showRecoveryPhase(source, phase) {
     clearWorkflow();
     ["task","implement"].forEach(name => wfNodes[name]?.classList.add("wf-done"));
-    wfNodes.quality?.classList.add("wf-active");
     successPaths[0]?.classList.add("path-on");
     successPaths[1]?.classList.add("path-on");
 
-    if (phase >= 1) {
-      wfNodes.quality?.classList.remove("wf-active");
+    if (source === "quality") {
+      wfNodes.quality?.classList.add("wf-active");
+    } else {
       wfNodes.quality?.classList.add("wf-done");
-      wfNodes.recovery?.classList.add("wf-recovery");
-      failurePaths[0]?.classList.add("path-on");
+      wfNodes.review?.classList.add("wf-active");
+      successPaths[2]?.classList.add("path-on");
     }
+
+    if (phase >= 1) {
+      if (source === "quality") {
+        wfNodes.quality?.classList.remove("wf-active");
+        wfNodes.quality?.classList.add("wf-done");
+        qualityFailurePaths.forEach(p => p.classList.add("path-on"));
+      } else {
+        wfNodes.review?.classList.remove("wf-active");
+        wfNodes.review?.classList.add("wf-done");
+        reviewFailurePaths.forEach(p => p.classList.add("path-on"));
+      }
+      wfNodes.recovery?.classList.add("wf-recovery");
+    }
+
     if (phase >= 2) {
-      failurePaths.forEach(p => p.classList.add("path-on"));
+      retryPaths.forEach(p => p.classList.add("path-on"));
       wfNodes.implement?.classList.remove("wf-done");
       wfNodes.implement?.classList.add("wf-active");
     }
@@ -829,9 +1018,12 @@ footer{padding:28px 0 34px}.footer{display:flex;justify-content:space-between;al
       () => showSuccessStep(0),
       () => showSuccessStep(1),
       () => showSuccessStep(2),
-      () => showRecoveryPhase(1),
-      () => showRecoveryPhase(2),
+      () => showRecoveryPhase("quality", 1),
+      () => showRecoveryPhase("quality", 2),
       () => showSuccessStep(2),
+      () => showSuccessStep(3),
+      () => showRecoveryPhase("review", 1),
+      () => showRecoveryPhase("review", 2),
       () => showSuccessStep(3),
       () => showSuccessStep(4),
     ];
